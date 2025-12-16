@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>USafe - Personal Safety Redefined</title>
+    <style>
+        /* --- CSS Reset & Variables --- */
+        :root {
+            /* Calming, Professional Steel Blues */
+            --primary-color: #2E5C8A;   /* Calming Steel Blue */
+            --primary-dark: #1B3B5A;    /* Darker Navy */
+            
+            /* UPDATED: New Button Color (Emerald Teal) */
+            --cta-color: #10b981;       /* Vibrant Safety Teal */
+            --cta-hover: #059669;       /* Darker Teal for hover */
+            
+            --accent-color: #D64045;    /* Keeping Red ONLY for SOS/Alert icons */
+            --text-dark: #2C3E50;       
+            --text-light: #F7FAFC;
+            --white: #ffffff;
+            --gray-light: #F0F4F8;      
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'Roboto', Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            line-height: 1.6;
+            color: var(--text-dark);
+            background-color: var(--white);
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: color 0.3s ease;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        /* --- Header & Navigation --- */
+        header {
+            background: rgba(255, 255, 255, 0.98);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(5px);
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+        }
+
+        /* LOGO STYLING */
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            fill: var(--primary-color);
+        }
+
+        .logo-text {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            letter-spacing: 0.5px;
+            line-height: 1;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            font-weight: 500;
+            color: var(--text-dark);
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+
+        /* Header "Download" Button */
+        .btn-download {
+            background: var(--primary-color);
+            color: var(--white) !important;
+            padding: 0.6rem 1.5rem;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(46, 92, 138, 0.2);
+        }
+
+        .btn-download:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(46, 92, 138, 0.3);
+        }
+
+        /* --- Hero Section --- */
+        .hero {
+            background: linear-gradient(135deg, rgba(46, 92, 138, 0.85), rgba(27, 59, 90, 0.75)), 
+                        url('https://images.unsplash.com/photo-1573164713714-d95e436ab8d6?auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center; 
+            background-position-y: 30%;
+            height: 95vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: var(--white);
+            padding: 0 2rem;
+            padding-top: 80px;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            animation: fadeIn 1.5s ease;
+        }
+
+        .hero-content h1 {
+            font-size: 3.8rem;
+            margin-bottom: 1.2rem;
+            font-weight: 700;
+            line-height: 1.2;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+
+        .hero-content p {
+            font-size: 1.35rem;
+            margin-bottom: 2.5rem;
+            opacity: 0.95;
+            font-weight: 300;
+            text-shadow: 0 1px 5px rgba(0,0,0,0.2);
+        }
+
+        /* UPDATED HERO BUTTON */
+        .btn-hero {
+            background: var(--cta-color); /* NEW TEAL COLOR */
+            color: var(--white);
+            padding: 1rem 3rem;
+            font-size: 1.2rem;
+            border-radius: 50px;
+            font-weight: 700;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            /* Shadow matching the new teal */
+            box-shadow: 0 5px 20px rgba(16, 185, 129, 0.4); 
+            letter-spacing: 0.5px;
+        }
+
+        .btn-hero:hover {
+            transform: translateY(-3px);
+            background: var(--cta-hover);
+            box-shadow: 0 8px 25px rgba(16, 185, 129, 0.6);
+        }
+
+        /* --- Features Section --- */
+        .features {
+            padding: 6rem 2rem;
+            background: var(--white);
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary-dark);
+            font-weight: 700;
+        }
+        
+        .section-subtitle {
+            margin-bottom: 4rem;
+            color: #666;
+            font-size: 1.1rem;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .feature-card {
+            background: var(--white);
+            padding: 2.5rem;
+            border-radius: 15px;
+            border: 1px solid #eef2f6;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.08);
+            border-color: var(--primary-color);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            background: #f0f4f8;
+            width: 80px;
+            height: 80px;
+            line-height: 80px;
+            border-radius: 50%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .feature-card h3 {
+            margin-bottom: 1rem;
+            color: var(--primary-dark);
+            font-size: 1.4rem;
+        }
+
+        .feature-card p {
+            color: #666;
+            font-size: 1rem;
+        }
+
+        /* --- How it Works --- */
+        .how-it-works {
+            background: var(--gray-light);
+            padding: 6rem 2rem;
+            position: relative;
+        }
+
+        .steps {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .step {
+            flex: 1;
+            min-width: 280px;
+            max-width: 350px;
+            text-align: center;
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.03);
+        }
+
+        .step-number {
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+            color: var(--white);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem auto;
+            font-weight: 700;
+            font-size: 1.2rem;
+            box-shadow: 0 4px 10px rgba(46, 92, 138, 0.3);
+        }
+
+        /* --- Footer --- */
+        footer {
+            background: var(--primary-dark);
+            color: #a0aec0;
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+
+        footer .logo-container {
+            justify-content: center;
+            margin-bottom: 1rem;
+        }
+        
+        footer .logo-text {
+            color: var(--white);
+        }
+
+        footer .logo-icon {
+            fill: var(--white);
+        }
+
+        .footer-links {
+            margin: 2rem 0;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+        }
+
+        .footer-links a {
+            color: #cbd5e0;
+            font-size: 0.95rem;
+        }
+
+        .footer-links a:hover {
+            color: var(--white);
+        }
+
+        /* --- Animation --- */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- Responsive Design --- */
+        @media (max-width: 768px) {
+            .hero-content h1 {
+                font-size: 2.8rem;
+            }
+            
+            .navbar {
+                flex-direction: column;
+                gap: 1.5rem;
+                padding: 1.5rem;
+            }
+
+            .nav-links {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+            
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <nav class="navbar">
+            <a href="#" class="logo-container">
+                <svg class="logo-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path d="M12 2L4 5V11.09C4 16.14 7.41 20.85 12 22C16.59 20.85 20 16.14 20 11.09V5L12 2ZM12 16C9.79 16 8 14.21 8 12C8 9.79 9.79 8 12 8C14.21 8 16 9.79 16 12C16 14.21 14.21 16 12 16Z"/>
+                </svg>
+                <span class="logo-text">USafe</span>
+            </a>
+            
+            <ul class="nav-links">
+                <li><a href="#features">Features</a></li>
+                <li><a href="#how-it-works">How it Works</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li><a href="#" class="btn-download">Download App</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Stay Safe, Everywhere.</h1>
+            <p>Empowering you with calm confidence. Real-time location sharing and instant alerts for peace of mind.</p>
+            <button class="btn-hero" onclick="alert('Redirecting to App Store...')">Get USafe Free</button>
+        </div>
+    </section>
+
+    <section id="features" class="features">
+        <h2 class="section-title">Designed for Your Peace of Mind</h2>
+        <p class="section-subtitle">Advanced technology that keeps you connected and secure without the stress.</p>
+        
+        <div class="feature-grid">
+            <div class="feature-card">
+                <div class="feature-icon">📍</div>
+                <h3>Live Location</h3>
+                <p>Share your real-time journey with trusted contacts. They see exactly where you are, only when you want them to.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🚨</div>
+                <h3>Instant SOS</h3>
+                <p>A single discreet tap sends an immediate alert to your circle and emergency services with your location.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">👥</div>
+                <h3>Community Watch</h3>
+                <p>Join a network of users reporting safety hazards. Stay informed about your surroundings in real-time.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="how-it-works" class="how-it-works">
+        <div class="container">
+            <h2 class="section-title" style="text-align: center;">Simple Setup, Total Safety</h2>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>Install USafe</h3>
+                    <p>Download the app and create your secure profile in under a minute.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>Add Contacts</h3>
+                    <p>Choose the friends and family members you trust to receive your alerts.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>Go Confidently</h3>
+                    <p>Live your life freely knowing your safety net is always in your pocket.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="logo-container">
+            <svg class="logo-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <path d="M12 2L4 5V11.09C4 16.14 7.41 20.85 12 22C16.59 20.85 20 16.14 20 11.09V5L12 2ZM12 16C9.79 16 8 14.21 8 12C8 9.79 9.79 8 12 8C14.21 8 16 9.79 16 12C16 14.21 14.21 16 12 16Z"/>
+            </svg>
+            <span class="logo-text">USafe</span>
+        </div>
+        <p>Technology built for trust and safety.</p>
+        <div class="footer-links">
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms of Service</a>
+            <a href="#">Help Center</a>
+        </div>
+        <p>&copy; 2025 USafe Inc. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>

@@ -71,14 +71,21 @@ a { text-decoration: none; }
 }
 .btn-primary:hover { background: var(--dark-blue); transform: translateY(-3px); box-shadow: 0 8px 20px rgba(10, 36, 99, 0.4); }
 
+.menu-toggle {
+    display: none; 
+    font-size: 1.8rem;
+    color: var(--dark-blue);
+    cursor: pointer;
+}
+
 /* =========================================
-   3. HERO SECTION (Centered with Button)
+   3. HERO SECTION
    ========================================= */
 .hero-section { 
-    height: 90vh; /* Full screen height for impact */
+    height: 90vh; 
     width: 100%; 
     margin-top: 0; 
-    padding-top: 60px; /* Account for navbar */
+    padding-top: 60px; 
     display: flex; 
     align-items: center; 
     justify-content: center; 
@@ -87,72 +94,40 @@ a { text-decoration: none; }
     text-align: center;
 }
 
-.hero-video {
-    position: absolute; top: 0; left: 0;
-    width: 100%; height: 100%; object-fit: cover; z-index: 0;
-}
-
-.hero-overlay {
-    position: absolute; top: 0; left: 0;
-    width: 100%; height: 100%;
-    background: rgba(0, 0, 0, 0.5); 
-    z-index: 1;
-}
+.hero-video { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; }
+.hero-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); z-index: 1; }
 
 .hero-content { 
-    position: relative; 
-    z-index: 2; 
-    max-width: 900px; /* Limits width so text doesn't stretch too far */
-    padding: 0 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    color: white;
+    position: relative; z-index: 2; max-width: 900px; padding: 0 20px;
+    display: flex; flex-direction: column; align-items: center; color: white;
 }
+.hero-content h1 { font-size: 4rem; line-height: 1.1; margin-bottom: 25px; font-weight: 700; }
+.hero-content p { font-size: 1.3rem; margin-bottom: 40px; opacity: 0.95; max-width: 600px; }
 
-.hero-content h1 {
-    font-size: 4rem; 
-    line-height: 1.1;
-    margin-bottom: 25px; 
-    font-weight: 700;
-}
-
-.hero-content p {
-    font-size: 1.3rem; 
-    margin-bottom: 40px; 
-    opacity: 0.95; 
-    max-width: 600px;
-}
-
-/* Learn More Button */
 .btn-learn-more {
-    background: var(--primary);
-    color: white;
-    font-size: 1.1rem;
-    font-weight: 600;
-    padding: 15px 40px;
-    border-radius: 50px;
-    transition: var(--transition);
-    border: 2px solid var(--primary);
-    display: inline-flex;
-    align-items: center;
+    background: var(--primary); color: white; font-size: 1.1rem; font-weight: 600;
+    padding: 15px 40px; border-radius: 50px; transition: var(--transition);
+    border: 2px solid var(--primary); display: inline-flex; align-items: center;
 }
-
-.btn-learn-more:hover {
-    background: transparent;
-    border-color: white;
-    transform: translateY(-5px);
-}
+.btn-learn-more:hover { background: transparent; border-color: white; transform: translateY(-5px); }
 
 /* =========================================
    4. SECTIONS (Problem, Features, Timeline)
    ========================================= */
-.problem-goal-section, .features-section, .vision-section, .developers-section, .contact-section {
+.problem-goal-section, .features-section, .developers-section, .contact-section {
     padding: 100px 0; background-color: transparent;
 }
-.section-title { font-size: 2.5rem; color: var(--dark-blue); margin-bottom: 60px; text-align: center;padding-left: 270px; }
 
-/* Problem & Goals */
+/* Base styles for Desktop */
+.section-title { 
+    font-size: 2.5rem; 
+    color: var(--dark-blue); 
+    margin-bottom: 60px; 
+    text-align: center;
+    /* This padding exists for desktop as per your request */
+    padding-left: 270px; 
+}
+
 .goal-header { max-width: 800px; margin-bottom: 60px; }
 .goal-description { font-size: 1.1rem; color: var(--text-light); line-height: 1.8; }
 .goals-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 30px; }
@@ -239,68 +214,23 @@ input:focus, textarea:focus { border-color: var(--primary); background: white; }
    ========================================= */
 .cta-section { 
     background: linear-gradient(90deg, #0A2463 0%, #00A8FF 100%); 
-    padding: 60px 20px; 
-    color: white; 
-    display: flex; 
-    justify-content: center; 
-    align-items: center;
-    margin-top: 150px; /* Space for phone sticking out */
-    position: relative;
-    overflow: visible; /* Allows phone to float out of box */
+    padding: 60px 20px; color: white; display: flex; justify-content: center; align-items: center;
+    margin-top: 150px; position: relative; overflow: visible; 
 }
-
 .cta-container { 
-    display: flex; 
-    align-items: center; 
-    justify-content: space-between;
-    max-width: 1200px;
-    width: 100%;
-    position: relative;
+    display: flex; align-items: center; justify-content: space-between;
+    max-width: 1200px; width: 100%; position: relative;
 }
-
-/* Left Column: Phone */
-.cta-col-left { 
-    flex: 1; 
-    display: flex; 
-    justify-content: flex-start; 
-}
-
+.cta-col-left { flex: 1; display: flex; justify-content: flex-start; }
 .cta-phone {
-    width: 260px;               
-    height: auto;
-    position: absolute;
-    left: 20px;                 
-    top: 0; 
-    transform: translateY(-33%); 
-    z-index: 10;
-    filter: drop-shadow(0 15px 30px rgba(0,0,0,0.4));
+    width: 260px; height: auto; position: absolute; left: 20px; top: 0; 
+    transform: translateY(-33%); z-index: 10; filter: drop-shadow(0 15px 30px rgba(0,0,0,0.4));
 }
-
-/* Center Column: Logo */
-.cta-col-center { 
-    flex: 1; 
-    display: flex; 
-    justify-content: center; 
-    align-items: center; 
-}
-
-.cta-center-logo { 
-    width: 120px; 
-    height: auto; 
-    filter: brightness(0) invert(1);
-    opacity: 0.9;
-}
-
-/* Right Column: Text */
-.cta-col-right { 
-    flex: 1.5; 
-    text-align: right; 
-    padding-left: 20px;
-}
-
+.cta-col-center { flex: 1; display: flex; justify-content: center; align-items: center; }
+.cta-center-logo { width: 120px; height: auto; filter: brightness(0) invert(1); opacity: 0.9; }
+.cta-col-right { flex: 1.5; text-align: right; padding-left: 20px; }
 .cta-col-right h2 { font-size: 2.2rem; margin-bottom: 10px; font-weight: 700; }
 .cta-col-right p { font-size: 1.1rem; opacity: 0.9; margin-bottom: 25px; }
-
 .store-buttons { display: flex; gap: 15px; justify-content: flex-end; }
 .btn-store { 
     background: black; color: white; padding: 10px 25px; 
@@ -327,50 +257,62 @@ footer { background: white; padding: 20px 0; border-top: 1px solid #eee; text-al
 .footer-right { flex: 1; display: flex; justify-content: flex-end; }
 .footer-right p { color: var(--text-light); font-size: 0.85rem; white-space: nowrap; }
 
-
 /* =========================================
-   7. RESPONSIVE ADJUSTMENTS (Final & Unified)
+   7. RESPONSIVE ADJUSTMENTS (UNIFIED)
    ========================================= */
 
-/* Tablet & Smaller Desktops */
 @media (max-width: 1024px) {
-    .hero-content h1 { font-size: 3.2rem; }
+    .hero-content h1 { font-size: 3rem; }
     .nav-links { gap: 20px; }
-    .section-container { padding: 0 40px; }
+    .developers-grid { grid-template-columns: repeat(2, 1fr); }
 }
 
-/* Mobile Phones (Standard) */
 @media (max-width: 768px) {
-    /* Navbar */
-    .nav-links, .btn-primary { display: none; }
-    .nav-container { justify-content: center; } 
+    /* Navbar: Show Hamburger, Hide Links */
+    .menu-toggle { display: block; }
+    .nav-links {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 70px; left: 0; width: 100%;
+        background: white; padding: 20px;
+        box-shadow: 0 10px 15px rgba(0,0,0,0.1);
+        text-align: center; gap: 20px;
+    }
+    .nav-links.active { display: flex; }
+    .btn-primary { display: none; }
+    .nav-container { justify-content: center; }
 
     /* Hero Section */
     .hero-section { height: 70vh; padding-top: 80px; }
     .hero-content h1 { font-size: 2.2rem; }
     .hero-content p { font-size: 1.1rem; }
 
-    /* Centered Problem/Goal Section */
-    .problem-goal-section { padding: 60px 0; min-height: auto; }
-    .goals-grid, .features-grid, .developers-grid { grid-template-columns: 1fr; } 
+    /* Fix: Reset specific left paddings for Mobile */
+    .section-title { 
+        font-size: 2rem; 
+        margin-bottom: 30px; 
+        padding-left: 0 !important; /* CRITICAL FIX */
+        text-align: center;
+    }
+    .problem-goal-section, .features-section, .developers-section { padding: 60px 0; }
+    .goal-header { padding-left: 0; text-align: center; }
 
-    /* Timeline Fix for Mobile */
+    /* Grids: Stack vertically */
+    .goals-grid, .features-grid, .developers-grid { grid-template-columns: 1fr; gap: 25px; }
+
+    /* Timeline: Move to side for Mobile */
     .timeline::after { left: 20px; }
     .timeline-item { width: 100%; padding-left: 50px; padding-right: 0; text-align: left; left: 0 !important; }
     .timeline-item::after { left: 8px; right: auto; }
-    
-    /* Contact Section */
-    .contact-container { flex-direction: column-reverse; gap: 40px; }
-    .contact-form-card { width: 100%; padding: 25px; }
-    .form-row { flex-direction: column; gap: 15px; }
 
-    /* CTA Section Fix */
+    /* CTA Section: Stack and fix Phone */
     .cta-section { padding: 40px 20px; margin-top: 80px; overflow: hidden; }
     .cta-container { flex-direction: column; text-align: center; gap: 30px; }
     .cta-phone { 
         position: relative; 
-        left: auto; top: auto;
-        width: 200px;
+        left: auto; top: auto; 
+        width: 180px; 
         transform: translateY(0); 
         margin: 0 auto -20px auto; 
     }
@@ -378,153 +320,17 @@ footer { background: white; padding: 20px 0; border-top: 1px solid #eee; text-al
     .store-buttons { justify-content: center; flex-direction: column; }
     .btn-store { width: 100%; justify-content: center; }
 
-    /* Footer */
-    .footer-links-row { flex-direction: column; gap: 15px; }
-}
-
-/* =========================================
-   10. RESPONSIVE ADJUSTMENTS (Full Mobile Optimization)
-   ========================================= */
-
-/* Tablet & Smaller Desktops */
-@media (max-width: 1024px) {
-    .hero-content h1 { font-size: 3.2rem; }
-    .nav-links { gap: 20px; }
-    .section-container { padding: 0 40px; }
-}
-
-/* Mobile Phones (Standard) */
-@media (max-width: 768px) {
-    /* Navbar: Hide links for a cleaner mobile look or use a hamburger menu */
-    .nav-links { display: none; }
-    .nav-container { justify-content: center; } /* Center logo on mobile */
-    .btn-primary { display: none; } /* Hide download button in nav to save space */
-
-    /* Hero Section */
-    .hero-section { height: 60vh; padding-top: 80px; }
-    .hero-content h1 { font-size: 2.2rem; }
-    .hero-content p { font-size: 1.1rem; margin-bottom: 30px; }
-    .btn-learn-more { padding: 12px 30px; font-size: 1rem; }
-
-    /* Problem & Goal Section */
-  /* Section remains centered but the inner content is shifted */
-.problem-goal-section { 
-    padding: 80px 0; 
-    min-height: auto; 
-    display: flex;
-    justify-content: center; /* Keeps the grid centered */
-    align-items: center;
-}
-
-/* Specifically target the header to move it to the right */
-.goal-header {
-    width: 100%;
-    max-width: 900px;
-    padding-left: 120px; /* Adjust this to move the title further right */
-    text-align: left;    /* Change to left so the padding actually pushes it */
-    margin-bottom: 50px;
-}
-
-.section-title { 
-    font-size: 2.5rem; 
-    color: var(--dark-blue); 
-    margin-bottom: 30px; 
-}
-
-.goal-description { 
-    font-size: 1.1rem; 
-    color: var(--text-light); 
-}
-
-/* Ensure the grid underneath remains perfectly centered and 2x2 */
-.goals-grid { 
-    display: grid; 
-    grid-template-columns: repeat(2, 1fr); 
-    gap: 30px; 
-    max-width: 900px;
-    margin: 0 auto; /* Centers the grid block */
-}
-
-    /* Features Section */
-    .features-grid { grid-template-columns: 1fr; gap: 20px; }
-    .feature-card { padding: 30px; }
-
-    /* Timeline Section */
-    .timeline::after { left: 20px; } /* Move the line to the left */
-    .timeline-item { width: 100%; padding-left: 50px; padding-right: 0; text-align: left; }
-    .timeline-item.right { left: 0; }
-    .timeline-item::after { left: 8px; right: auto; } /* Align dots with the left line */
-    
-    /* Team Section */
-    .developers-grid { grid-template-columns: 1fr; gap: 30px; }
-
-    /* Contact Section */
+    /* Contact */
     .contact-container { flex-direction: column-reverse; gap: 40px; }
     .contact-form-card { width: 100%; padding: 25px; }
     .form-row { flex-direction: column; gap: 15px; }
-    .contact-info { text-align: center; }
-    .info-item { justify-content: center; text-align: left; }
-
-    /* CTA Section (The Blue Banner) */
-    .cta-section { padding: 40px 20px; margin-top: 60px; overflow: hidden; }
-    .cta-container { flex-direction: column; text-align: center; gap: 30px; }
-    
-    .cta-phone { 
-        position: relative; 
-        left: auto; 
-        top: auto;
-        width: 180px; /* Smaller phone for mobile screens */
-        transform: translateY(0); 
-        margin: 0 auto -20px auto; /* Centered with a slight bottom overlap */
-    }
-
-    .cta-center-logo { width: 100px; margin-bottom: 10px; }
-    .cta-col-right { text-align: center; padding-left: 0; }
-    .cta-col-right h2 { font-size: 1.6rem; }
-    .store-buttons { justify-content: center; flex-direction: column; width: 100%; }
-    .btn-store { width: 100%; justify-content: center; }
 
     /* Footer */
     .footer-links-row { flex-direction: column; gap: 15px; }
-    footer { padding: 20px 0; }
+    .footer-bottom-row { flex-direction: column; gap: 20px; }
 }
 
-/* Very Small Screen Fixes */
 @media (max-width: 480px) {
     .hero-content h1 { font-size: 1.8rem; }
-    .section-title { font-size: 1.5rem; }
-}
-
-/* --- Main CSS --- */
-.menu-toggle {
-    display: none; /* Hidden on desktop */
-    font-size: 1.8rem;
-    color: var(--dark-blue);
-    cursor: pointer;
-}
-
-/* --- Inside @media (max-width: 768px) --- */
-@media (max-width: 768px) {
-    .menu-toggle {
-        display: block; /* Show on mobile */
-    }
-
-    .nav-links {
-        display: none; /* Hide by default */
-        flex-direction: column;
-        position: absolute;
-        top: 75px; /* Adjust based on navbar height */
-        left: 0;
-        width: 100%;
-        background: white;
-        padding: 20px;
-        box-shadow: 0 10px 15px rgba(0,0,0,0.1);
-        text-align: center;
-        gap: 20px;
-    }
-
-    /* Class to show the menu via JS */
-    .nav-links.active {
-        display: flex;
-    }
+    .section-title { font-size: 1.6rem; }
 }

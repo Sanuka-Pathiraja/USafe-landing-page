@@ -7,7 +7,7 @@
     --text-dark: #1e272e;
     --text-light: #636e72;
     --white: #ffffff;
-    --bg-light: #edf1f5; 
+    --bg-light: #ecf1f8; 
     --yellow: #f1c40f;
     --red: #e74c3c;
     --transition: all 0.4s ease;
@@ -150,7 +150,7 @@ a { text-decoration: none; }
 .problem-goal-section, .features-section, .vision-section, .developers-section, .contact-section {
     padding: 100px 0; background-color: transparent;
 }
-.section-title { font-size: 2.5rem; color: var(--dark-blue); margin-bottom: 60px; text-align: center; }
+.section-title { font-size: 2.5rem; color: var(--dark-blue); margin-bottom: 60px; text-align: center;padding-left: 270px; }
 
 /* Problem & Goals */
 .goal-header { max-width: 800px; margin-bottom: 60px; }
@@ -327,9 +327,7 @@ footer { background: white; padding: 20px 0; border-top: 1px solid #eee; text-al
 .footer-right { flex: 1; display: flex; justify-content: flex-end; }
 .footer-right p { color: var(--text-light); font-size: 0.85rem; white-space: nowrap; }
 
-/* =========================================
-   7. RESPONSIVE ADJUSTMENTS
-   ========================================= */
+
 /* =========================================
    7. RESPONSIVE ADJUSTMENTS (Final & Unified)
    ========================================= */
@@ -409,10 +407,43 @@ footer { background: white; padding: 20px 0; border-top: 1px solid #eee; text-al
     .btn-learn-more { padding: 12px 30px; font-size: 1rem; }
 
     /* Problem & Goal Section */
-    .problem-goal-section { padding: 60px 0; min-height: auto; }
-    .section-title { font-size: 1.8rem; margin-bottom: 30px; }
-    .goal-description { font-size: 1rem; padding: 0 10px; }
-    .goals-grid { grid-template-columns: 1fr; } /* Stack cards in a single column */
+  /* Section remains centered but the inner content is shifted */
+.problem-goal-section { 
+    padding: 80px 0; 
+    min-height: auto; 
+    display: flex;
+    justify-content: center; /* Keeps the grid centered */
+    align-items: center;
+}
+
+/* Specifically target the header to move it to the right */
+.goal-header {
+    width: 100%;
+    max-width: 900px;
+    padding-left: 120px; /* Adjust this to move the title further right */
+    text-align: left;    /* Change to left so the padding actually pushes it */
+    margin-bottom: 50px;
+}
+
+.section-title { 
+    font-size: 2.5rem; 
+    color: var(--dark-blue); 
+    margin-bottom: 30px; 
+}
+
+.goal-description { 
+    font-size: 1.1rem; 
+    color: var(--text-light); 
+}
+
+/* Ensure the grid underneath remains perfectly centered and 2x2 */
+.goals-grid { 
+    display: grid; 
+    grid-template-columns: repeat(2, 1fr); 
+    gap: 30px; 
+    max-width: 900px;
+    margin: 0 auto; /* Centers the grid block */
+}
 
     /* Features Section */
     .features-grid { grid-template-columns: 1fr; gap: 20px; }

@@ -118,17 +118,23 @@ a { text-decoration: none; }
     padding: 100px 0; background-color: transparent;
 }
 
-/* Base styles for Desktop */
+/* --- FIXED TITLES --- */
 .section-title { 
     font-size: 2.5rem; 
     color: var(--dark-blue); 
     margin-bottom: 60px; 
     text-align: center;
-    /* This padding exists for desktop as per your request */
-    padding-left: 270px; 
+    width: 100%; /* Ensures full width for centering */
+    padding-left: 0; /* REMOVED THE 270px PADDING */
 }
 
-.goal-header { max-width: 800px; margin-bottom: 60px; }
+/* --- FIXED GOAL HEADER --- */
+.goal-header { 
+    max-width: 800px; 
+    margin: 0 auto 60px auto; /* 'auto' left/right centers the block */
+    text-align: center;
+}
+
 .goal-description { font-size: 1.1rem; color: var(--text-light); line-height: 1.8; }
 .goals-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 30px; }
 
@@ -258,7 +264,7 @@ footer { background: white; padding: 20px 0; border-top: 1px solid #eee; text-al
 .footer-right p { color: var(--text-light); font-size: 0.85rem; white-space: nowrap; }
 
 /* =========================================
-   7. RESPONSIVE ADJUSTMENTS (UNIFIED)
+   7. RESPONSIVE ADJUSTMENTS
    ========================================= */
 
 @media (max-width: 1024px) {
@@ -268,7 +274,7 @@ footer { background: white; padding: 20px 0; border-top: 1px solid #eee; text-al
 }
 
 @media (max-width: 768px) {
-    /* Navbar: Show Hamburger, Hide Links */
+    /* Navbar */
     .menu-toggle { display: block; }
     .nav-links {
         display: none;
@@ -278,6 +284,7 @@ footer { background: white; padding: 20px 0; border-top: 1px solid #eee; text-al
         background: white; padding: 20px;
         box-shadow: 0 10px 15px rgba(0,0,0,0.1);
         text-align: center; gap: 20px;
+        z-index: 999;
     }
     .nav-links.active { display: flex; }
     .btn-primary { display: none; }
@@ -288,25 +295,22 @@ footer { background: white; padding: 20px 0; border-top: 1px solid #eee; text-al
     .hero-content h1 { font-size: 2.2rem; }
     .hero-content p { font-size: 1.1rem; }
 
-    /* Fix: Reset specific left paddings for Mobile */
-    .section-title { 
-        font-size: 2rem; 
-        margin-bottom: 30px; 
-        padding-left: 0 !important; /* CRITICAL FIX */
-        text-align: center;
-    }
+    /* General Spacing */
     .problem-goal-section, .features-section, .developers-section { padding: 60px 0; }
-    .goal-header { padding-left: 0; text-align: center; }
+    
+    /* Ensure Center Alignment on Mobile */
+    .section-title { font-size: 2rem; margin-bottom: 30px; padding-left: 0; text-align: center; }
+    .goal-header { margin: 0 auto 30px auto; padding-left: 0; text-align: center; }
 
-    /* Grids: Stack vertically */
+    /* Grids */
     .goals-grid, .features-grid, .developers-grid { grid-template-columns: 1fr; gap: 25px; }
 
-    /* Timeline: Move to side for Mobile */
+    /* Timeline */
     .timeline::after { left: 20px; }
     .timeline-item { width: 100%; padding-left: 50px; padding-right: 0; text-align: left; left: 0 !important; }
     .timeline-item::after { left: 8px; right: auto; }
 
-    /* CTA Section: Stack and fix Phone */
+    /* CTA Section */
     .cta-section { padding: 40px 20px; margin-top: 80px; overflow: hidden; }
     .cta-container { flex-direction: column; text-align: center; gap: 30px; }
     .cta-phone { 

@@ -350,3 +350,28 @@ footer { background: white; padding: 20px 0; border-top: 1px solid #eee; text-al
     .hero-content h1 { font-size: 1.8rem; }
     .section-title { font-size: 1.6rem; }
 }
+
+/* ABOUT SECTION */
+
+.about-section{
+    padding:100px 0;
+}
+
+.about-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:60px;
+    align-items:center;
+}
+
+.about-text p{
+    font-size:1.05rem;
+    color:var(--text-light);
+    line-height:1.8;
+    margin-bottom:20px;
+}
+
+.about-image img{
+    width:100%;
+    border-radius:20px;
+}

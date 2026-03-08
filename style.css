@@ -109,6 +109,7 @@ a { text-decoration: none; }
     --hero-subtitle-scale: 1;
     --hero-title-glow: rgba(229, 209, 250, 0.9);
     --hero-subtitle-glow: rgba(163, 156, 244, 0.75);
+    overflow: visible;
 }
 .hero-copy h1 {
     transform: translateZ(0) scale(var(--hero-title-scale));
@@ -121,6 +122,131 @@ a { text-decoration: none; }
         0 0 42px rgba(163, 156, 244, 0.42);
     animation: heroTitleGlow 3.2s ease-in-out infinite;
 }
+
+/* Radar pulse backdrop behind the hero title.
+   Adjust here:
+   - Size: --radar-size
+   - Speed: --radar-duration
+   - Ring opacity: border alpha in .radar-ring
+   - Color: --radar-cyan / --radar-blue
+*/
+.hero-title-radar {
+    --radar-size: clamp(210px, 28vw, 340px);
+    --radar-field-scale: 1.43;
+    --radar-duration: 4.2s;
+    --radar-cyan: rgba(84, 227, 255, 0.82);
+    --radar-blue: rgba(0, 168, 255, 0.68);
+    --radar-start-scale: 0.35; /* Scroll-linked via JS */
+    --radar-end-scale: 1.25; /* Scroll-linked via JS */
+    position: relative;
+    display: inline-grid;
+    place-items: center;
+    isolation: isolate;
+    width: fit-content;
+    overflow: visible;
+}
+
+.hero-title-radar h1 {
+    position: relative;
+    z-index: 3;
+}
+
+.radar-field {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: calc(var(--radar-size) * var(--radar-field-scale));
+    height: calc(var(--radar-size) * var(--radar-field-scale));
+    transform: translate(-50%, -50%);
+    overflow: hidden;
+    border-radius: 50%;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.radar-field::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: calc(var(--radar-size) * 0.72);
+    height: calc(var(--radar-size) * 0.72);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    border: 1px solid rgba(84, 227, 255, 0.22);
+    box-shadow: 0 0 20px rgba(0, 168, 255, 0.1);
+    z-index: 0;
+    pointer-events: none;
+}
+
+.radar-center-glow,
+.radar-ring {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    pointer-events: none;
+    transform: translate(-50%, -50%) translateZ(0);
+}
+
+.radar-center-glow {
+    width: calc(var(--radar-size) * 0.46);
+    height: calc(var(--radar-size) * 0.46);
+    border-radius: 50%;
+    z-index: 0;
+    background:
+        radial-gradient(circle, rgba(84, 227, 255, 0.22) 0%, rgba(0, 168, 255, 0.14) 45%, rgba(0, 168, 255, 0) 80%);
+    filter: blur(2px);
+}
+
+.radar-ring {
+    width: var(--radar-size);
+    height: var(--radar-size);
+    border-radius: 50%;
+    z-index: 1;
+    border: 2px solid rgba(84, 227, 255, 0.42);
+    box-shadow:
+        0 0 0 1px rgba(0, 168, 255, 0.2) inset,
+        0 0 28px rgba(0, 168, 255, 0.16);
+    opacity: 0;
+    will-change: transform, opacity;
+    animation: heroRadarPulse var(--radar-duration) cubic-bezier(0.22, 1, 0.36, 1) infinite;
+}
+
+.radar-ring-extra {
+    animation-play-state: paused;
+    opacity: 0;
+}
+
+.hero-title-radar.is-scrolling .radar-ring-extra {
+    animation-play-state: running;
+}
+
+.radar-ring.ring-1 { animation-delay: 0s; }
+.radar-ring.ring-2 { animation-delay: calc(var(--radar-duration) / -6); }
+.radar-ring.ring-3 { animation-delay: calc((var(--radar-duration) * -2) / 6); }
+.radar-ring.ring-4 { animation-delay: calc((var(--radar-duration) * -3) / 6); }
+.radar-ring.ring-5 { animation-delay: calc((var(--radar-duration) * -4) / 6); }
+.radar-ring.ring-6 { animation-delay: calc((var(--radar-duration) * -5) / 6); }
+
+@keyframes heroRadarPulse {
+    0% {
+        transform: translate(-50%, -50%) scale(var(--radar-start-scale));
+        opacity: 0;
+        border-color: var(--radar-cyan);
+    }
+    16% {
+        opacity: 0.42;
+    }
+    70% {
+        opacity: 0.16;
+        border-color: var(--radar-blue);
+    }
+    100% {
+        transform: translate(-50%, -50%) scale(var(--radar-end-scale));
+        opacity: 0;
+    }
+}
+
 .hero-copy p {
     transform: translateZ(0) scale(var(--hero-subtitle-scale));
     transform-origin: center center;
@@ -832,6 +958,18 @@ footer { background: white; padding: 20px 0; border-top: 1px solid #eee; text-al
 @media (prefers-reduced-motion: reduce) {
     .hero-copy {
         will-change: auto;
+    }
+    .hero-title-radar {
+        --radar-duration: 0s;
+    }
+    .radar-ring {
+        animation: none;
+        opacity: 0.08;
+        transform: translate(-50%, -50%) scale(1);
+    }
+    .radar-center-glow {
+        filter: none;
+        opacity: 0.12;
     }
     .hero-copy h1,
     .hero-copy p {

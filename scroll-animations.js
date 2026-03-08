@@ -8,6 +8,7 @@
     var timelineItems = timelineTrack ? Array.prototype.slice.call(timelineTrack.querySelectorAll(".timeline-item")) : [];
     var heroSection = document.querySelector(".hero-section");
     var heroCopy = document.querySelector(".hero-copy");
+    var heroRadar = heroCopy ? heroCopy.querySelector(".hero-title-radar") : null;
     var timelineSceneLayer = document.querySelector(".timeline-bg-scenes");
     var timelineScenes = timelineSceneLayer ? Array.prototype.slice.call(timelineSceneLayer.querySelectorAll(".timeline-bg-scene")) : [];
     var activeTimelineScene = -1;
@@ -82,12 +83,20 @@
     if (heroSection && heroCopy && !reducedMotion) {
         var heroScaleTicking = false;
         var heroScaleRunning = false;
+        var heroRadarScrollTimer = null;
         var heroCurrentTitleScale = 1;
         var heroCurrentSubtitleScale = 1;
         var heroTargetTitleScale = 1;
         var heroTargetSubtitleScale = 1;
+        var heroCurrentRadarStartScale = 0.35;
+        var heroCurrentRadarEndScale = 1.25;
+        var heroTargetRadarStartScale = 0.35;
+        var heroTargetRadarEndScale = 1.25;
+        var heroCurrentRadarFieldScale = 1.43;
+        var heroTargetRadarFieldScale = 1.43;
         var HERO_MAX_TITLE_SCALE = 2.08; // Title scale intensity.
         var HERO_MAX_SUBTITLE_SCALE = 1.12; // Subtitle scale intensity (keep lower).
+        var HERO_MAX_RADAR_BOOST = 3.4; // 4x stronger scroll-linked radar expansion.
         var HERO_SMOOTHING = 0.18; // Tune easing/smoothing (higher = more responsive)
 
         var updateHeroScaleTarget = function () {
@@ -100,18 +109,32 @@
             var eased = 1 - Math.exp(-scrolled / Math.max(curveDistance, 1));
             heroTargetTitleScale = 1 + (HERO_MAX_TITLE_SCALE - 1) * eased;
             heroTargetSubtitleScale = 1 + (HERO_MAX_SUBTITLE_SCALE - 1) * eased;
+            heroTargetRadarStartScale = 0.35 + HERO_MAX_RADAR_BOOST * 0.18 * eased;
+            heroTargetRadarEndScale = 1.25 + HERO_MAX_RADAR_BOOST * eased;
+            heroTargetRadarFieldScale = heroTargetRadarEndScale + 0.18;
         };
 
         var animateHeroScale = function () {
             heroCurrentTitleScale += (heroTargetTitleScale - heroCurrentTitleScale) * HERO_SMOOTHING;
             heroCurrentSubtitleScale += (heroTargetSubtitleScale - heroCurrentSubtitleScale) * HERO_SMOOTHING;
+            heroCurrentRadarStartScale += (heroTargetRadarStartScale - heroCurrentRadarStartScale) * HERO_SMOOTHING;
+            heroCurrentRadarEndScale += (heroTargetRadarEndScale - heroCurrentRadarEndScale) * HERO_SMOOTHING;
+            heroCurrentRadarFieldScale += (heroTargetRadarFieldScale - heroCurrentRadarFieldScale) * HERO_SMOOTHING;
 
             heroCopy.style.setProperty("--hero-title-scale", heroCurrentTitleScale.toFixed(4));
             heroCopy.style.setProperty("--hero-subtitle-scale", heroCurrentSubtitleScale.toFixed(4));
+            if (heroRadar) {
+                heroRadar.style.setProperty("--radar-start-scale", heroCurrentRadarStartScale.toFixed(4));
+                heroRadar.style.setProperty("--radar-end-scale", heroCurrentRadarEndScale.toFixed(4));
+                heroRadar.style.setProperty("--radar-field-scale", heroCurrentRadarFieldScale.toFixed(4));
+            }
 
             if (
                 Math.abs(heroTargetTitleScale - heroCurrentTitleScale) > 0.0006 ||
-                Math.abs(heroTargetSubtitleScale - heroCurrentSubtitleScale) > 0.0006
+                Math.abs(heroTargetSubtitleScale - heroCurrentSubtitleScale) > 0.0006 ||
+                Math.abs(heroTargetRadarStartScale - heroCurrentRadarStartScale) > 0.0006 ||
+                Math.abs(heroTargetRadarEndScale - heroCurrentRadarEndScale) > 0.0006 ||
+                Math.abs(heroTargetRadarFieldScale - heroCurrentRadarFieldScale) > 0.0006
             ) {
                 window.requestAnimationFrame(animateHeroScale);
                 return;
@@ -120,6 +143,16 @@
         };
 
         var onHeroScaleScroll = function () {
+            if (heroRadar) {
+                heroRadar.classList.add("is-scrolling");
+                if (heroRadarScrollTimer) {
+                    window.clearTimeout(heroRadarScrollTimer);
+                }
+                heroRadarScrollTimer = window.setTimeout(function () {
+                    heroRadar.classList.remove("is-scrolling");
+                }, 220);
+            }
+
             if (heroScaleTicking) {
                 return;
             }

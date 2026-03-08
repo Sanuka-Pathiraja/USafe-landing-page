@@ -11,7 +11,9 @@
 
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.lordicon.com/lordicon.js"></script>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="scroll-animations.css">
 </head>
 <body>
 
@@ -44,9 +46,11 @@
 
         <div class="hero-overlay"></div>
 
-        <div class="hero-content fade-in-up">
-            <h1>Your Proactive <br> AI Guardian</h1>
-            <p>Intelligent safety that acts before you have to.</p>
+        <div class="hero-content">
+            <div class="hero-copy">
+                <h1>Your Proactive <br> AI Guardian</h1>
+                <p>Intelligent safety that acts before you have to.</p>
+            </div>
             
             <a href="#features" class="btn-learn-more">
                 Learn More <i class="fas fa-arrow-down" style="margin-left: 8px; font-size: 0.9em;"></i>
@@ -54,7 +58,7 @@
         </div>
     </header>
 
-    <section class="problem-goal-section reveal">
+    <section class="problem-goal-section goals-section">
         <div class="section-container">
             <div class="goal-header">
                 <h2 class="section-title">The Problem & Our Goal</h2>
@@ -66,28 +70,28 @@
             </div>
 
             <div class="goals-grid">
-                <div class="goal-card">
+                <div class="goal-card from-left">
                     <div class="goal-icon-box"><i class="fas fa-history"></i></div>
                     <div class="goal-content">
                         <h3>Shift from Reactive to Proactive</h3>
                         <p>Current apps wait for you to press a button. USafe uses AI to detect danger signs and acts automatically.</p>
                     </div>
                 </div>
-                <div class="goal-card">
+                <div class="goal-card from-right">
                     <div class="goal-icon-box"><i class="fas fa-bullseye"></i></div>
                     <div class="goal-content">
                         <h3>95% Threat Detection Accuracy</h3>
                         <p>Using advanced audio processing and ML models, we accurately identify genuine distress signals.</p>
                     </div>
                 </div>
-                <div class="goal-card">
+                <div class="goal-card from-left">
                     <div class="goal-icon-box"><i class="fas fa-stopwatch"></i></div>
                     <div class="goal-content">
                         <h3>Reduce Response Time</h3>
                         <p>By automating the SOS process, we aim to cut emergency alert times by 40%.</p>
                     </div>
                 </div>
-                <div class="goal-card">
+                <div class="goal-card from-right">
                     <div class="goal-icon-box"><i class="fas fa-robot"></i></div>
                     <div class="goal-content">
                         <h3>Reduce Human Error</h3>
@@ -121,7 +125,6 @@
                     actively protects people before danger escalates.
                 </p>
             </div>
-
            
 
         </div>
@@ -169,34 +172,182 @@
     <section id="how-it-works" class="timeline-section reveal">
         <div class="section-container">
             <h2 class="section-title">How USafe Works in Real Life</h2>
+            <div class="timeline-visual-stage">
+            <div class="timeline-bg-scenes" aria-hidden="true">
+                <div class="timeline-bg-scene scene-1 side-left" data-scene="0">
+                    <lord-icon
+                        src="https://cdn.lordicon.com/ilhuppkd.json"
+                        trigger="loop"
+                        state="loop-cycle"
+                        colors="primary:#e5d1fa,secondary:#e5d1fa"
+                        style="width:250px;height:250px"
+                        class="scene-svg scene-lordicon"
+                    ></lord-icon>
+                </div>
+                <div class="timeline-bg-scene scene-2 side-right" data-scene="1">
+                    <lord-icon
+                        src="https://cdn.lordicon.com/lltgvngb.json"
+                        trigger="loop"
+                        stroke="light"
+                        class="scene-svg scene-lordicon scene-lordicon-danger"
+                    ></lord-icon>
+                </div>
+                <div class="timeline-bg-scene scene-3 side-left" data-scene="2">
+                    <lord-icon
+                        src="https://cdn.lordicon.com/dicvhxpz.json"
+                        trigger="loop"
+                        state="hover-look-around"
+                        colors="primary:#e5d1fa,secondary:#e5d1fa"
+                        style="width:250px;height:250px"
+                        class="scene-svg scene-lordicon scene-lordicon-reacts"
+                    ></lord-icon>
+                </div>
+                <div class="timeline-bg-scene scene-4 side-right" data-scene="3">
+                    <lord-icon
+                        src="https://cdn.lordicon.com/apmrcxtj.json"
+                        trigger="loop"
+                        state="in-reveal"
+                        colors="primary:#f4a09c,secondary:#ee6d66"
+                        style="width:250px;height:250px"
+                        class="scene-svg scene-lordicon scene-lordicon-notify"
+                    ></lord-icon>
+                </div>
+                <div class="timeline-bg-scene scene-5 side-left" data-scene="4">
+                    <lord-icon
+                        src="https://cdn.lordicon.com/onmwuuox.json"
+                        trigger="loop"
+                        state="in-jump-dynamic"
+                        colors="primary:#ee6d66,secondary:#e5d1fa"
+                        style="width:250px;height:250px"
+                        class="scene-svg scene-lordicon scene-lordicon-location"
+                    ></lord-icon>
+                </div>
+                <div class="timeline-bg-scene scene-6 side-right" data-scene="5">
+                    <lord-icon
+                        src="https://cdn.lordicon.com/edcgvlnw.json"
+                        trigger="loop"
+                        colors="primary:#f4a09c,secondary:#ee6d66"
+                        style="width:250px;height:250px"
+                        class="scene-svg scene-lordicon scene-lordicon-guided"
+                    ></lord-icon>
+                </div>
+                <div class="timeline-bg-scene scene-7 side-left" data-scene="6">
+                    <lord-icon
+                        src="https://cdn.lordicon.com/tkwytimu.json"
+                        trigger="loop"
+                        colors="primary:#7166ee,secondary:#f4a09c"
+                        style="width:250px;height:250px"
+                        class="scene-svg scene-lordicon scene-lordicon-response"
+                    ></lord-icon>
+                </div>
+                <div class="timeline-bg-scene scene-8 side-right" data-scene="7">
+                    <lord-icon
+                        src="https://cdn.lordicon.com/nvsfzbop.json"
+                        trigger="loop"
+                        colors="primary:#f4a09c,secondary:#a39cf4"
+                        style="width:250px;height:250px"
+                        class="scene-svg scene-lordicon scene-lordicon-final"
+                    ></lord-icon>
+                </div>
+            </div>
             <div class="timeline">
                 <div class="timeline-item left">
-                    <div class="timeline-content card-shadow">
+                    <div class="timeline-side-title">
+                        <h3>Walking Normally</h3>
+                    </div>
+                    <div class="timeline-content timeline-detail card-shadow">
                         <div class="content-header">
-                            <i class="fas fa-running" style="color: #f1c40f;"></i>
-                            <h3>Enters High-Risk Area</h3>
+                            <i class="fas fa-road" style="color: #00A8FF;"></i>
+                            <h4>Normal Journey</h4>
                         </div>
-                        <p>Nimali enters a poorly lit alley. Her "Safety Score" drops, and USafe quietly primes the AI.</p>
+                        <p>The journey begins like any other day.</p>
                     </div>
                 </div>
                 <div class="timeline-item right">
-                    <div class="timeline-content card-shadow">
+                    <div class="timeline-side-title">
+                        <h3>Danger Appears</h3>
+                    </div>
+                    <div class="timeline-content timeline-detail card-shadow">
                         <div class="content-header">
-                            <i class="fas fa-assistive-listening-systems" style="color: #00A8FF;"></i>
-                            <h3>Distress Detected</h3>
+                            <i class="fas fa-triangle-exclamation" style="color: #f1c40f;"></i>
+                            <h4>Threat Signal</h4>
                         </div>
-                        <p>The app detects shouting. AI analyzes the audio tone as "Panic" and activates SOS.</p>
+                        <p>Something unusual or threatening is detected.</p>
                     </div>
                 </div>
                 <div class="timeline-item left">
-                    <div class="timeline-content card-shadow">
+                    <div class="timeline-side-title">
+                        <h3>USafe Reacts</h3>
+                    </div>
+                    <div class="timeline-content timeline-detail card-shadow">
                         <div class="content-header">
-                            <i class="fas fa-satellite-dish" style="color: #e74c3c;"></i>
-                            <h3>Automatic SOS</h3>
+                            <i class="fas fa-bolt" style="color: #e74c3c;"></i>
+                            <h4>Emergency Mode</h4>
                         </div>
-                        <p>Nimali cannot reach her phone. USafe automatically sends her live location to parents.</p>
+                        <p>The app enters emergency mode immediately.</p>
                     </div>
                 </div>
+                <div class="timeline-item right">
+                    <div class="timeline-side-title">
+                        <h3>Help Is Notified</h3>
+                    </div>
+                    <div class="timeline-content timeline-detail card-shadow">
+                        <div class="content-header">
+                            <i class="fas fa-bell" style="color: #00A8FF;"></i>
+                            <h4>Alert Sent</h4>
+                        </div>
+                        <p>Trusted contacts receive the alert.</p>
+                    </div>
+                </div>
+                <div class="timeline-item left">
+                    <div class="timeline-side-title">
+                        <h3>Location Is Shared</h3>
+                    </div>
+                    <div class="timeline-content timeline-detail card-shadow">
+                        <div class="content-header">
+                            <i class="fas fa-location-dot" style="color: #0A2463;"></i>
+                            <h4>Live Tracking</h4>
+                        </div>
+                        <p>The user’s real-time position is sent.</p>
+                    </div>
+                </div>
+                <div class="timeline-item right">
+                    <div class="timeline-side-title">
+                        <h3>Safe Action Is Guided</h3>
+                    </div>
+                    <div class="timeline-content timeline-detail card-shadow">
+                        <div class="content-header">
+                            <i class="fas fa-route" style="color: #00A8FF;"></i>
+                            <h4>Guided Safety</h4>
+                        </div>
+                        <p>USafe helps the user avoid greater risk.</p>
+                    </div>
+                </div>
+                <div class="timeline-item left">
+                    <div class="timeline-side-title">
+                        <h3>Response Moves Faster</h3>
+                    </div>
+                    <div class="timeline-content timeline-detail card-shadow">
+                        <div class="content-header">
+                            <i class="fas fa-stopwatch" style="color: #f1c40f;"></i>
+                            <h4>Faster Response</h4>
+                        </div>
+                        <p>Others can act quickly with the right information.</p>
+                    </div>
+                </div>
+                <div class="timeline-item right">
+                    <div class="timeline-side-title">
+                        <h3>Safety Comes First</h3>
+                    </div>
+                    <div class="timeline-content timeline-detail card-shadow">
+                        <div class="content-header">
+                            <i class="fas fa-shield-alt" style="color: #e74c3c;"></i>
+                            <h4>Proactive Protection</h4>
+                        </div>
+                        <p>The system is built to protect before it is too late.</p>
+                    </div>
+                </div>
+            </div>
             </div>
         </div>
     </section>
@@ -352,19 +503,6 @@
     </footer>
 
     <script>
-        window.addEventListener('scroll', reveal);
-        function reveal(){
-            var reveals = document.querySelectorAll('.reveal');
-            for(var i = 0; i < reveals.length; i++){
-                var windowheight = window.innerHeight;
-                var revealtop = reveals[i].getBoundingClientRect().top;
-                var revealpoint = 150;
-                if(revealtop < windowheight - revealpoint){
-                    reveals[i].classList.add('active');
-                }
-            }
-        }
-
     const menuToggle = document.getElementById('mobile-menu');
     const navList = document.getElementById('nav-list');
 
@@ -380,6 +518,7 @@
     });
 
     </script>
+    <script src="scroll-animations.js"></script>
 
 </body>
 </html>

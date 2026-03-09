@@ -1,0 +1,106 @@
+﻿:root {
+    --primary: #00A8FF;
+    --dark-blue: #0A2463;
+    --text-dark: #1e272e;
+    --text-light: #636e72;
+    --white: #ffffff;
+    --bg-light: #ecf1f8;
+    --yellow: #f1c40f;
+    --red: #e74c3c;
+    --transition: all 0.4s ease;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: var(--bg-light);
+    background-image:
+        linear-gradient(rgba(0, 168, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 168, 255, 0.03) 1px, transparent 1px);
+    background-size: 30px 30px;
+    color: var(--text-dark);
+    overflow-x: hidden;
+}
+
+a {
+    text-decoration: none;
+}
+
+.section-container,
+.nav-container,
+.footer-container,
+.cta-container,
+.contact-container,
+.page-header-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 20px;
+    width: 100%;
+}
+
+.section-title {
+    font-size: 2.5rem;
+    color: var(--dark-blue);
+    margin-bottom: 60px;
+    text-align: center;
+    width: 100%;
+}
+
+.page-main {
+    padding-top: 88px;
+}
+
+.page-header {
+    padding: 60px 0 30px;
+}
+
+.page-header h1 {
+    font-size: 2.8rem;
+    color: var(--dark-blue);
+    margin-bottom: 16px;
+}
+
+.page-header p {
+    max-width: 760px;
+    font-size: 1.06rem;
+    line-height: 1.8;
+    color: var(--text-light);
+}
+
+@media (max-width: 768px) {
+    .section-title {
+        font-size: 2rem;
+        margin-bottom: 30px;
+    }
+
+    .page-main {
+        padding-top: 78px;
+    }
+
+    .page-header {
+        padding: 44px 0 20px;
+    }
+
+    .page-header h1 {
+        font-size: 2.1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .section-title {
+        font-size: 1.6rem;
+    }
+
+    .page-header h1 {
+        font-size: 1.8rem;
+    }
+}

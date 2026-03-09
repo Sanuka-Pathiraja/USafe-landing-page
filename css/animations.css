@@ -1,5 +1,4 @@
-/* Scroll reveal animation system: floating pop style */
-.reveal {
+﻿.reveal {
     opacity: 0;
     transform: translate3d(0, 40px, 0) scale(0.92);
     filter: blur(6px);
@@ -16,7 +15,6 @@
     filter: blur(0);
 }
 
-/* Use this class in markup for intentional floating pop cards */
 .reveal.pop-card {
     transform: translate3d(0, 40px, 0) scale(0.92);
 }
@@ -27,24 +25,13 @@
 }
 
 @keyframes revealFloat {
-    0% {
-        transform: translate3d(0, 0, 0) scale(1);
-    }
-    25% {
-        transform: translate3d(0, -2px, 0) scale(1);
-    }
-    50% {
-        transform: translate3d(0, 3px, 0) scale(1);
-    }
-    75% {
-        transform: translate3d(0, -1px, 0) scale(1);
-    }
-    100% {
-        transform: translate3d(0, 0, 0) scale(1);
-    }
+    0% { transform: translate3d(0, 0, 0) scale(1); }
+    25% { transform: translate3d(0, -2px, 0) scale(1); }
+    50% { transform: translate3d(0, 3px, 0) scale(1); }
+    75% { transform: translate3d(0, -1px, 0) scale(1); }
+    100% { transform: translate3d(0, 0, 0) scale(1); }
 }
 
-/* Respect reduced motion preferences */
 @media (prefers-reduced-motion: reduce) {
     .reveal,
     .reveal.pop-card,

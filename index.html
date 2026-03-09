@@ -1,42 +1,43 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>USafe | Intelligent Personal Safety</title>
-    
+
     <link rel="icon" sizes="192x192" href="images/final USafe logo.jpg">
     <link rel="icon" type="image/png" sizes="32x32" href="images/final USafe logo.jpg">
     <link rel="icon" type="image/png" sizes="16x16" href="images/final USafe logo.jpg">
 
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="https://cdn.lordicon.com/lordicon.js"></script>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="scroll-animations.css">
+
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <link rel="stylesheet" href="css/pages/home.css">
 </head>
-<body>
-
+<body data-page="home">
     <nav class="navbar">
-    <div class="nav-container">
-        <div class="logo">
-            <img src="images/final USafe logo.jpg" alt="USafe Logo" class="nav-logo">
-            <span class="logo-text" style="font-weight: 800; color: #00A8FF; font-size: 1.5rem; margin-left: 10px;"></span>
-        </div>
+        <div class="nav-container">
+            <a class="logo" href="index.html" aria-label="USafe Home">
+                <img src="images/final USafe logo.jpg" alt="USafe Logo" class="nav-logo">
+            </a>
 
-        <div class="menu-toggle" id="mobile-menu">
-            <i class="fas fa-bars"></i>
-        </div>
+            <div class="menu-toggle" id="mobile-menu" aria-label="Toggle navigation" aria-controls="nav-list">
+                <i class="fas fa-bars"></i>
+            </div>
 
-        <ul class="nav-links" id="nav-list">
-            <li><a href="#features">Features</a></li>
-            <li><a href="#how-it-works">How It Works</a></li>
-            <li><a href="#team">Team</a></li>
-            <li><a href="#contact">Contact</a></li>
-        </ul>
-        <a href="#waitlist" class="btn-primary">Download App</a>
-    </div>
-</nav>
+            <ul class="nav-links" id="nav-list">
+                <li><a href="index.html" data-page="home">Home</a></li>
+                <li><a href="features.html" data-page="features">Features</a></li>
+                <li><a href="how-it-works.html" data-page="how-it-works">How It Works</a></li>
+                <li><a href="team.html" data-page="team">Team</a></li>
+                <li><a href="contact.html" data-page="contact">Contact</a></li>
+            </ul>
+            <a href="#cta" class="btn-primary">Download App</a>
+        </div>
+    </nav>
 
     <header class="hero-section">
         <video autoplay muted loop playsinline class="hero-video">
@@ -62,474 +63,201 @@
                 </div>
                 <p>Intelligent safety that acts before you have to.</p>
             </div>
-            
-            <a href="#features" class="btn-learn-more">
-                Learn More <i class="fas fa-arrow-down" style="margin-left: 8px; font-size: 0.9em;"></i>
+
+            <a href="#home-overview" class="btn-learn-more">
+                Learn More <i class="fas fa-arrow-down" aria-hidden="true"></i>
             </a>
         </div>
     </header>
 
-    <section class="problem-goal-section goals-section">
-        <div class="section-container">
-            <div class="goal-header">
-                <h2 class="section-title">The Problem & Our Goal</h2>
-                <p class="goal-description">
-                    <strong>The Problem:</strong> Traditional safety measures are reactive—help is only summoned <em>after</em> an incident occurs.
-                    <br><br>
-                    <strong>Our Mission:</strong> To transform personal safety with proactive, AI-driven protection.
-                </p>
-            </div>
+    <main id="home-overview">
+        <section class="problem-goal-section goals-section section-block">
+            <div class="section-container">
+                <div class="goal-header">
+                    <h2 class="section-title">The Problem &amp; Our Goal</h2>
+                    <p class="goal-description">
+                        <strong>The Problem:</strong> Traditional safety measures are reactive, where help is often summoned after an incident occurs.
+                        <br><br>
+                        <strong>Our Mission:</strong> To transform personal safety with proactive, AI-driven protection.
+                    </p>
+                </div>
 
-            <div class="goals-grid">
-                <div class="goal-card from-left">
-                    <div class="goal-icon-box"><i class="fas fa-history"></i></div>
-                    <div class="goal-content">
-                        <h3>Shift from Reactive to Proactive</h3>
-                        <p>Current apps wait for you to press a button. USafe uses AI to detect danger signs and acts automatically.</p>
-                    </div>
-                </div>
-                <div class="goal-card from-right">
-                    <div class="goal-icon-box"><i class="fas fa-bullseye"></i></div>
-                    <div class="goal-content">
-                        <h3>95% Threat Detection Accuracy</h3>
-                        <p>Using advanced audio processing and ML models, we accurately identify genuine distress signals.</p>
-                    </div>
-                </div>
-                <div class="goal-card from-left">
-                    <div class="goal-icon-box"><i class="fas fa-stopwatch"></i></div>
-                    <div class="goal-content">
-                        <h3>Reduce Response Time</h3>
-                        <p>By automating the SOS process, we aim to cut emergency alert times by 40%.</p>
-                    </div>
-                </div>
-                <div class="goal-card from-right">
-                    <div class="goal-icon-box"><i class="fas fa-robot"></i></div>
-                    <div class="goal-content">
-                        <h3>Reduce Human Error</h3>
-                        <p>In panic situations, humans freeze. Our automated system removes the burden of action from the victim.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-<!--About USafe Section-->
-    <section id="about" class="about-section reveal">
-    <div class="section-container">
-        <h2 class="section-title">About USafe</h2>
-
-        <div class="about-grid">
-
-            <div class="about-text">
-                <p>
-                    <strong>USafe</strong> is an intelligent personal safety application designed to
-                    protect individuals in real-time using modern technology.
-                </p>
-
-                <p>
-                    By combining artificial intelligence, location tracking, and
-                    community alerts, USafe helps users stay safe in uncertain
-                    environments.
-                </p>
-
-                <p>
-                    Our mission is to create a safer world where technology
-                    actively protects people before danger escalates.
-                </p>
-            </div>
-           
-
-        </div>
-    </div>
-</section>
-
-    <section id="features" class="features-section reveal">
-        <div class="section-container">
-            <h2 class="section-title">Why Choose USafe?</h2>
-            <div class="features-grid">
-                <div class="feature-card">
-                    <div class="icon-box"><i class="fas fa-shield-alt"></i></div>
-                    <h3>AI Threat Detection</h3>
-                    <p>Predicts potential risks using real-time data and smart geofencing algorithms.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="icon-box"><i class="fas fa-microphone-lines"></i></div>
-                    <h3>Audio SOS Trigger</h3>
-                    <p>Instantly alerts contacts by detecting specific distress sounds or phrases.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="icon-box"><i class="fas fa-users"></i></div>
-                    <h3>Community Network</h3>
-                    <p>Share and view live danger zones with the trusted USafe community.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="icon-box"><i class="fas fa-map-location-dot"></i></div>
-                    <h3>Live Location Share</h3>
-                    <p>Share your real-time journey with loved ones so they can watch over you remotely.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="icon-box"><i class="fas fa-phone-volume"></i></div>
-                    <h3>Fake Call Tool</h3>
-                    <p>Generate a realistic fake incoming call to help you exit uncomfortable situations.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="icon-box"><i class="fas fa-signal"></i></div>
-                    <h3>Offline SMS Mode</h3>
-                    <p>No data? Alerts automatically switch to SMS to ensure your SOS is always sent.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="how-it-works" class="timeline-section reveal">
-        <div class="section-container">
-            <h2 class="section-title">How USafe Works in Real Life</h2>
-            <div class="timeline-visual-stage">
-            <div class="timeline-bg-scenes" aria-hidden="true">
-                <div class="timeline-bg-scene scene-1 side-left" data-scene="0">
-                    <lord-icon
-                        src="https://cdn.lordicon.com/ilhuppkd.json"
-                        trigger="loop"
-                        state="loop-cycle"
-                        colors="primary:#e5d1fa,secondary:#e5d1fa"
-                        style="width:250px;height:250px"
-                        class="scene-svg scene-lordicon"
-                    ></lord-icon>
-                </div>
-                <div class="timeline-bg-scene scene-2 side-right" data-scene="1">
-                    <lord-icon
-                        src="https://cdn.lordicon.com/lltgvngb.json"
-                        trigger="loop"
-                        stroke="light"
-                        class="scene-svg scene-lordicon scene-lordicon-danger"
-                    ></lord-icon>
-                </div>
-                <div class="timeline-bg-scene scene-3 side-left" data-scene="2">
-                    <lord-icon
-                        src="https://cdn.lordicon.com/dicvhxpz.json"
-                        trigger="loop"
-                        state="hover-look-around"
-                        colors="primary:#e5d1fa,secondary:#e5d1fa"
-                        style="width:250px;height:250px"
-                        class="scene-svg scene-lordicon scene-lordicon-reacts"
-                    ></lord-icon>
-                </div>
-                <div class="timeline-bg-scene scene-4 side-right" data-scene="3">
-                    <lord-icon
-                        src="https://cdn.lordicon.com/apmrcxtj.json"
-                        trigger="loop"
-                        state="in-reveal"
-                        colors="primary:#f4a09c,secondary:#ee6d66"
-                        style="width:250px;height:250px"
-                        class="scene-svg scene-lordicon scene-lordicon-notify"
-                    ></lord-icon>
-                </div>
-                <div class="timeline-bg-scene scene-5 side-left" data-scene="4">
-                    <lord-icon
-                        src="https://cdn.lordicon.com/onmwuuox.json"
-                        trigger="loop"
-                        state="in-jump-dynamic"
-                        colors="primary:#ee6d66,secondary:#e5d1fa"
-                        style="width:250px;height:250px"
-                        class="scene-svg scene-lordicon scene-lordicon-location"
-                    ></lord-icon>
-                </div>
-                <div class="timeline-bg-scene scene-6 side-right" data-scene="5">
-                    <lord-icon
-                        src="https://cdn.lordicon.com/edcgvlnw.json"
-                        trigger="loop"
-                        colors="primary:#f4a09c,secondary:#ee6d66"
-                        style="width:250px;height:250px"
-                        class="scene-svg scene-lordicon scene-lordicon-guided"
-                    ></lord-icon>
-                </div>
-                <div class="timeline-bg-scene scene-7 side-left" data-scene="6">
-                    <lord-icon
-                        src="https://cdn.lordicon.com/tkwytimu.json"
-                        trigger="loop"
-                        colors="primary:#7166ee,secondary:#f4a09c"
-                        style="width:250px;height:250px"
-                        class="scene-svg scene-lordicon scene-lordicon-response"
-                    ></lord-icon>
-                </div>
-                <div class="timeline-bg-scene scene-8 side-right" data-scene="7">
-                    <lord-icon
-                        src="https://cdn.lordicon.com/nvsfzbop.json"
-                        trigger="loop"
-                        colors="primary:#f4a09c,secondary:#a39cf4"
-                        style="width:250px;height:250px"
-                        class="scene-svg scene-lordicon scene-lordicon-final"
-                    ></lord-icon>
-                </div>
-            </div>
-            <div class="timeline">
-                <div class="timeline-item left">
-                    <div class="timeline-side-title">
-                        <h3>Walking Normally</h3>
-                    </div>
-                    <div class="timeline-content timeline-detail card-shadow">
-                        <div class="content-header">
-                            <i class="fas fa-road" style="color: #00A8FF;"></i>
-                            <h4>Normal Journey</h4>
+                <div class="goals-grid">
+                    <article class="goal-card from-left">
+                        <div class="goal-icon-box"><i class="fas fa-history"></i></div>
+                        <div class="goal-content">
+                            <h3>Shift from Reactive to Proactive</h3>
+                            <p>Current apps wait for user action. USafe detects danger signals and acts automatically.</p>
                         </div>
-                        <p>The journey begins like any other day.</p>
-                    </div>
-                </div>
-                <div class="timeline-item right">
-                    <div class="timeline-side-title">
-                        <h3>Danger Appears</h3>
-                    </div>
-                    <div class="timeline-content timeline-detail card-shadow">
-                        <div class="content-header">
-                            <i class="fas fa-triangle-exclamation" style="color: #f1c40f;"></i>
-                            <h4>Threat Signal</h4>
+                    </article>
+                    <article class="goal-card from-right">
+                        <div class="goal-icon-box"><i class="fas fa-bullseye"></i></div>
+                        <div class="goal-content">
+                            <h3>95% Threat Detection Accuracy</h3>
+                            <p>Advanced audio processing and machine learning help identify genuine distress with high precision.</p>
                         </div>
-                        <p>Something unusual or threatening is detected.</p>
-                    </div>
-                </div>
-                <div class="timeline-item left">
-                    <div class="timeline-side-title">
-                        <h3>USafe Reacts</h3>
-                    </div>
-                    <div class="timeline-content timeline-detail card-shadow">
-                        <div class="content-header">
-                            <i class="fas fa-bolt" style="color: #e74c3c;"></i>
-                            <h4>Emergency Mode</h4>
+                    </article>
+                    <article class="goal-card from-left">
+                        <div class="goal-icon-box"><i class="fas fa-stopwatch"></i></div>
+                        <div class="goal-content">
+                            <h3>Reduce Response Time</h3>
+                            <p>Automated SOS escalation aims to cut emergency alert time by around 40%.</p>
                         </div>
-                        <p>The app enters emergency mode immediately.</p>
-                    </div>
-                </div>
-                <div class="timeline-item right">
-                    <div class="timeline-side-title">
-                        <h3>Help Is Notified</h3>
-                    </div>
-                    <div class="timeline-content timeline-detail card-shadow">
-                        <div class="content-header">
-                            <i class="fas fa-bell" style="color: #00A8FF;"></i>
-                            <h4>Alert Sent</h4>
+                    </article>
+                    <article class="goal-card from-right">
+                        <div class="goal-icon-box"><i class="fas fa-robot"></i></div>
+                        <div class="goal-content">
+                            <h3>Reduce Human Error</h3>
+                            <p>In panic situations people may freeze. Automation removes the burden of decision-making.</p>
                         </div>
-                        <p>Trusted contacts receive the alert.</p>
-                    </div>
-                </div>
-                <div class="timeline-item left">
-                    <div class="timeline-side-title">
-                        <h3>Location Is Shared</h3>
-                    </div>
-                    <div class="timeline-content timeline-detail card-shadow">
-                        <div class="content-header">
-                            <i class="fas fa-location-dot" style="color: #0A2463;"></i>
-                            <h4>Live Tracking</h4>
-                        </div>
-                        <p>The user’s real-time position is sent.</p>
-                    </div>
-                </div>
-                <div class="timeline-item right">
-                    <div class="timeline-side-title">
-                        <h3>Safe Action Is Guided</h3>
-                    </div>
-                    <div class="timeline-content timeline-detail card-shadow">
-                        <div class="content-header">
-                            <i class="fas fa-route" style="color: #00A8FF;"></i>
-                            <h4>Guided Safety</h4>
-                        </div>
-                        <p>USafe helps the user avoid greater risk.</p>
-                    </div>
-                </div>
-                <div class="timeline-item left">
-                    <div class="timeline-side-title">
-                        <h3>Response Moves Faster</h3>
-                    </div>
-                    <div class="timeline-content timeline-detail card-shadow">
-                        <div class="content-header">
-                            <i class="fas fa-stopwatch" style="color: #f1c40f;"></i>
-                            <h4>Faster Response</h4>
-                        </div>
-                        <p>Others can act quickly with the right information.</p>
-                    </div>
-                </div>
-                <div class="timeline-item right">
-                    <div class="timeline-side-title">
-                        <h3>Safety Comes First</h3>
-                    </div>
-                    <div class="timeline-content timeline-detail card-shadow">
-                        <div class="content-header">
-                            <i class="fas fa-shield-alt" style="color: #e74c3c;"></i>
-                            <h4>Proactive Protection</h4>
-                        </div>
-                        <p>The system is built to protect before it is too late.</p>
-                    </div>
+                    </article>
                 </div>
             </div>
-            </div>
-        </div>
-    </section>
+        </section>
 
-    <section id="team" class="developers-section reveal">
-        <div class="section-container">
-            <h2 class="section-title">Meet Our Team</h2>
-            <div class="developers-grid">
-                <div class="developer-card">
-                    <div class="dev-img-container">
-                        <img src="images/developer_images/sanuka.jpg" alt="Sanuka Pathiraja" class="dev-img">
+        <section class="about-section reveal">
+            <div class="section-container">
+                <h2 class="section-title">About USafe</h2>
+                <div class="about-grid">
+                    <div class="about-text">
+                        <p><strong>USafe</strong> is an intelligent personal safety application designed to protect individuals in real-time using modern technology.</p>
+                        <p>By combining AI, location tracking, and community alerts, USafe helps people stay safer in uncertain environments.</p>
+                        <p>Our mission is to create a world where technology actively protects people before danger escalates.</p>
                     </div>
-                    <h3>Sanuka Pathiraja</h3>
-                    <p class="role">Full Stack Developer</p>
-                    <div class="dev-socials">
-                        <a href="https://github.com/Sanuka-Pathiraja?tab=overview&from=2026-01-01&to=2026-01-20"><i class="fab fa-github"></i></a>
-                        <a href="https://www.linkedin.com/in/sanuka-pathiraja-4539b3330/"><i class="fab fa-linkedin"></i></a>
-                    </div>
-                </div>
-                <div class="developer-card">
-                    <div class="dev-img-container">
-                        <img src="images/developer_images/sahan.jpeg" alt="Sahan Premarathna" class="dev-img">
-                    </div>
-                    <h3>Sahan Premarathna</h3>
-                    <p class="role">Full Stack Developer</p>
-                    <div class="dev-socials">
-                        <a href="https://github.com/SahanPremarathna"><i class="fab fa-github"></i></a>
-                        <a href="https://www.linkedin.com/in/sahan-premarathna/"><i class="fab fa-linkedin"></i></a>
-                    </div>
-                </div>
-                <div class="developer-card">
-                    <div class="dev-img-container">
-                        <img src="images/developer_images/naveesh.png" alt="Naveesh Abheydheer" class="dev-img">
-                    </div>
-                    <h3>Naveesh Abeydheera</h3>
-                    <p class="role">Full Stack Developer</p>
-                    <div class="dev-socials">
-                        <a href="https://github.com/Navi2004725"><i class="fab fa-github"></i></a>
-                        <a href="https://www.linkedin.com/in/naveesh-abeydheera-a92511332/"><i class="fab fa-linkedin"></i></a>
-                    </div>
-                </div>
-                <div class="developer-card">
-                    <div class="dev-img-container">
-                        <img src="images/image_14.png" alt="Vinhara Perera" class="dev-img">
-                    </div>
-                    <h3>Vinhara Perera</h3>
-                    <p class="role">Front End & ML Developer</p>
-                    <div class="dev-socials">
-                        <a href="https://github.com/vinhara"><i class="fab fa-github"></i></a>
-                        <a href="#"><i class="fab fa-linkedin"></i></a>
-                    </div>
-                </div>
-                <div class="developer-card">
-                    <div class="dev-img-container">
-                        <img src="images/developer_images/yousuf.png" alt="Yousuf Nazim" class="dev-img">
-                    </div>
-                    <h3>Yousuf Nizam</h3>
-                    <p class="role">Front End & ML Developer</p>
-                    <div class="dev-socials">
-                        <a href="https://github.com/YousufNizam"><i class="fab fa-github"></i></a>
-                        <a href="https://www.linkedin.com/in/yousuf-nizam-428b22334/"><i class="fab fa-linkedin"></i></a>
-                    </div>
-                </div>
-                <div class="developer-card">
-                    <div class="dev-img-container">
-                        <img src="images/image_14.png" alt="Sithumi Palihena" class="dev-img">
-                    </div>
-                    <h3>Sithumi Palihena</h3>
-                    <p class="role">Front End & ML Developer</p>
-                    <div class="dev-socials">
-                        <a href="https://github.com/SithumiPalihena"><i class="fab fa-github"></i></a>
-                        <a href="https://www.linkedin.com/in/sithumi-palihena-565799346/"><i class="fab fa-linkedin"></i></a>
+                    <div class="preview-card reveal">
+                        <h3>Built for Real-Life Safety</h3>
+                        <p>USafe is designed as a complete safety ecosystem, from risk detection and emergency communication to trusted contact workflows and guided action.</p>
+                        <div class="split-actions">
+                            <a class="btn-link-primary" href="how-it-works.html">See Full Journey</a>
+                            <a class="btn-outline" href="features.html">Explore Features</a>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <section id="contact" class="contact-section reveal">
-        <div class="contact-container">
-            <div class="contact-form-card">
-                <h2>Contact <span style="color: #00A8FF;">Us</span></h2>
-                <form action="https://formspree.io/f/xnjjdwdj" method="POST">
-                    <div class="form-row">
-                        <input type="text" name="first_name" placeholder="First Name" required>
-                        <input type="text" name="last_name" placeholder="Last Name" required>
-                    </div>
-                    <input type="email" name="email" placeholder="Your Email Address" class="full-width" required>
-                    <input type="tel" name="phone" placeholder="Phone Number" class="full-width">
-                    <textarea name="message" placeholder="Message" rows="5" required></textarea>
-                    <button type="submit" class="btn-black">SEND MESSAGE</button>
-                </form>
-            </div>
-            <div class="contact-info">
-                <h2>Get In <span style="color: #00A8FF;">Touch</span></h2>
-                <p class="contact-subtext">Need help? Get in touch with us.</p>
-                <div class="info-item">
-                    <div class="info-icon"><i class="fas fa-phone-alt"></i></div>
-                    <div class="info-details">
-                        <span class="label">Phone</span>
-                        <span class="value">+94 77 249 2154</span>
-                    </div>
+        <!-- Homepage keeps concise previews; full detail lives in dedicated pages. -->
+        <section class="home-features-preview reveal">
+            <div class="section-container">
+                <div class="home-section-head">
+                    <h2 class="section-title">Feature Highlights</h2>
+                    <p>USafe combines intelligent detection, trusted alerts, and resilient communication in one proactive safety platform.</p>
                 </div>
-                <div class="info-item">
-                    <div class="info-icon"><i class="fas fa-envelope"></i></div>
-                    <div class="info-details">
-                        <span class="label">Email</span>
-                        <span class="value">teamusafe@gmail.com</span>
-                    </div>
+                <div class="preview-grid">
+                    <article class="preview-card">
+                        <h3>AI Threat Detection</h3>
+                        <p>Predicts potential risk patterns using live context and geofencing intelligence.</p>
+                    </article>
+                    <article class="preview-card">
+                        <h3>Audio SOS Trigger</h3>
+                        <p>Detects specific distress phrases and immediately initiates help workflows.</p>
+                    </article>
+                    <article class="preview-card">
+                        <h3>Offline SMS Mode</h3>
+                        <p>Automatically switches to SMS when data is unavailable to keep SOS delivery reliable.</p>
+                    </article>
+                </div>
+                <div class="split-actions">
+                    <a class="btn-link-primary" href="features.html">View All Features</a>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <section id="cta" class="cta-section reveal">
-        <div class="cta-container">
-            <div class="cta-col-left">
-                <img src="images/phonescreen.png" alt="USafe App Screen" class="cta-phone">
-            </div>
-            <div class="cta-col-center">
-                <img src="images/final USafe logo.jpg" alt="USafe" class="cta-center-logo">
-            </div>
-            <div class="cta-col-right">
-                <h2>Ready for a safer future?</h2>
-                <p>Join thousands protected by USafe today.</p>
-                <div class="store-buttons">
-                    <button class="btn-store"><i class="fab fa-apple"></i> App Store</button>
-                    <button class="btn-store"><i class="fab fa-google-play"></i> Google Play</button>
+        <section class="home-timeline-preview reveal">
+            <div class="section-container">
+                <div class="home-section-head">
+                    <h2 class="section-title">How It Works</h2>
+                    <p>USafe follows a proactive chain from normal movement to early threat detection and guided intervention.</p>
+                </div>
+                <div class="preview-grid">
+                    <article class="preview-card">
+                        <h3>1. Detect</h3>
+                        <p>Signals from environment and behavior indicate unusual risk in real time.</p>
+                    </article>
+                    <article class="preview-card">
+                        <h3>2. Alert</h3>
+                        <p>Trusted contacts receive clear emergency context without waiting for manual action.</p>
+                    </article>
+                    <article class="preview-card">
+                        <h3>3. Guide</h3>
+                        <p>The app supports safer decisions while responders gain better location visibility.</p>
+                    </article>
+                </div>
+                <div class="split-actions">
+                    <a class="btn-link-primary" href="how-it-works.html">Open Full Timeline</a>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <footer>
-        <div class="footer-container">
-            <div class="footer-links-row">
-                <a href="#">About Us</a>
-                <a href="#">Careers</a>
-                <a href="#">Blog</a>
-                <a href="#">Support</a>
-            </div>
-            <div class="footer-bottom-row">
-                <div class="footer-left"></div>
-                <div class="footer-center socials">
-                    <a href="https://www.linkedin.com/company/team-usafe/?viewAsMember=true"><i class="fab fa-linkedin"></i></a>
-                    <a href="https://www.instagram.com/itsusafe/"><i class="fab fa-instagram"></i></a>
+        <section class="home-team-preview reveal">
+            <div class="section-container">
+                <div class="home-section-head">
+                    <h2 class="section-title">Built by Team USafe</h2>
+                    <p>A cross-functional development team focused on safety-first product design and practical innovation.</p>
                 </div>
-                <div class="footer-right">
-                    <p>&copy; 2026 USafe Intelligent Safety.</p>
+                <div class="split-actions">
+                    <a class="btn-link-primary" href="team.html">Meet the Full Team</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="home-contact-preview reveal">
+            <div class="section-container">
+                <div class="contact-preview-shell">
+                    <div>
+                        <h2 class="section-title">Need to Talk to Us?</h2>
+                        <p>Reach the USafe team for collaborations, support, or product discussions through our dedicated contact page.</p>
+                    </div>
+                    <a class="btn-link-primary" href="contact.html">Go to Contact</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer id="cta" class="site-footer">
+        <section class="cta-section reveal">
+            <div class="cta-container">
+                <div class="cta-col-left">
+                    <img src="images/phonescreen.png" alt="USafe app screen" class="cta-phone">
+                </div>
+                <div class="cta-col-center">
+                    <img src="images/final USafe logo.jpg" alt="USafe" class="cta-center-logo">
+                </div>
+                <div class="cta-col-right">
+                    <h2>Ready for a safer future?</h2>
+                    <p>Join thousands protected by USafe today.</p>
+                    <div class="store-buttons">
+                        <button class="btn-store"><i class="fab fa-apple"></i> App Store</button>
+                        <button class="btn-store"><i class="fab fa-google-play"></i> Google Play</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="footer-main">
+            <div class="footer-container">
+                <div class="footer-links-row">
+                    <a href="index.html">About Us</a>
+                    <a href="team.html">Careers</a>
+                    <a href="features.html">Blog</a>
+                    <a href="contact.html">Support</a>
+                </div>
+                <div class="footer-bottom-row">
+                    <div class="footer-left"></div>
+                    <div class="footer-center socials">
+                        <a href="https://www.linkedin.com/company/team-usafe/?viewAsMember=true"><i class="fab fa-linkedin"></i></a>
+                        <a href="https://www.instagram.com/itsusafe/"><i class="fab fa-instagram"></i></a>
+                    </div>
+                    <div class="footer-right">
+                        <p>&copy; 2026 USafe Intelligent Safety.</p>
+                    </div>
                 </div>
             </div>
         </div>
     </footer>
 
-    <script>
-    const menuToggle = document.getElementById('mobile-menu');
-    const navList = document.getElementById('nav-list');
-
-    menuToggle.addEventListener('click', () => {
-        navList.classList.toggle('active');
-    });
-
-    // Optional: Close menu when a link is clicked
-    document.querySelectorAll('.nav-links a').forEach(link => {
-        link.addEventListener('click', () => {
-            navList.classList.remove('active');
-        });
-    });
-
-    </script>
-    <script src="scroll-animations.js"></script>
-
+    <script src="js/shared/navigation.js"></script>
+    <script src="js/shared/reveal.js"></script>
+    <script src="js/pages/home.js"></script>
 </body>
 </html>

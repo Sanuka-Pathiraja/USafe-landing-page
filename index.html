@@ -122,7 +122,40 @@
                 </p>
             </div>
 
-           
+            <div class="about-image">
+                <img src="#" alt="USafe Safety Technology">
+            </div>
+
+        </div>
+    </div>
+</section>
+
+ <!-- SAFETY STATISTICS SECTION -->
+<section class="stats-section reveal">
+    <div class="section-container">
+        <h2 class="section-title">USafe Impact</h2>
+
+        <div class="stats-grid">
+
+            <div class="stat-card">
+                <h3 class="stat-number" data-target="95">0</h3>
+                <p>Threat Detection Accuracy</p>
+            </div>
+
+            <div class="stat-card">
+                <h3 class="stat-number" data-target="40">0</h3>
+                <p>Faster Emergency Response</p>
+            </div>
+
+            <div class="stat-card">
+                <h3 class="stat-number" data-target="24">0</h3>
+                <p>AI Safety Monitoring</p>
+            </div>
+
+            <div class="stat-card">
+                <h3 class="stat-number" data-target="5000">0</h3>
+                <p>Users Protected</p>
+            </div>
 
         </div>
     </div>
@@ -380,6 +413,50 @@
     });
 
     </script>
+<script>
+
+const counters = document.querySelectorAll('.stat-number');
+
+const animateCounters = () => {
+
+counters.forEach(counter => {
+
+const target = +counter.getAttribute('data-target');
+const speed = 200;
+const increment = target / speed;
+
+let count = 0;
+
+const updateCount = () => {
+
+count += increment;
+
+if(count < target){
+
+counter.innerText = Math.ceil(count);
+requestAnimationFrame(updateCount);
+
+}else{
+
+counter.innerText = target;
+
+/* add glow effect after finish */
+
+counter.classList.add("glow");
+
+}
+
+};
+
+updateCount();
+
+});
+
+};
+
+window.addEventListener("load", animateCounters);
+
+</script>
 
 </body>
 </html>

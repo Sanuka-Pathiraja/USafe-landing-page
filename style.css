@@ -375,3 +375,77 @@ footer { background: white; padding: 20px 0; border-top: 1px solid #eee; text-al
     width:100%;
     border-radius:20px;
 }
+
+
+
+
+*/
+/* STATISTICS SECTION */
+
+.stats-section{
+    padding:90px 0;
+    background:linear-gradient(135deg,#f8fbff,#eef4ff);
+}
+
+.stats-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:30px;
+    text-align:center;
+}
+
+.stat-card{
+    background:white;
+    padding:40px 20px;
+    border-radius:15px;
+    transition:all 0.35s ease;
+    box-shadow:0 10px 25px rgba(0,0,0,0.06);
+}
+
+.stat-card:hover{
+    transform:translateY(-12px) scale(1.04);
+    box-shadow:0 20px 40px rgba(0,0,0,0.15);
+}
+
+.stat-number{
+    font-size:2.7rem;
+    color:var(--primary);
+    margin-bottom:10px;
+    font-weight:700;
+    position: relative;
+}
+
+
+
+/* Glow Pulse Animation */
+
+@keyframes glowPulse{
+
+0%{
+text-shadow:0 0 0px rgba(0,168,255,0);
+}
+
+50%{
+text-shadow:
+0 0 10px rgba(0,168,255,0.6),
+0 0 20px rgba(0,168,255,0.5),
+0 0 30px rgba(0,168,255,0.4);
+}
+
+100%{
+text-shadow:0 0 0px rgba(0,168,255,0);
+}
+
+}
+
+.stat-number.glow{
+animation:glowPulse 2s ease-in-out infinite;
+}
+
+.stat-card p{
+    color:var(--text-light);
+    font-size:0.95rem;
+}
+
+
+

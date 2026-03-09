@@ -1,0 +1,9 @@
+﻿/*
+  Components entrypoint.
+  Keep page HTML stable by importing feature-scoped component styles here.
+*/
+@import url('./components/buttons.css');
+@import url('./components/navigation.css');
+@import url('./components/primitives.css');
+@import url('./components/cta.css');
+@import url('./components/footer.css');

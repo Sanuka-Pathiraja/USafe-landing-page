@@ -1,79 +1,635 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>USafe Temp Splash</title>
-    <link rel="icon" sizes="192x192" href="images/final USafe logo.jpg">
-    <link rel="icon" type="image/png" sizes="32x32" href="images/final USafe logo.jpg">
-    <link rel="icon" type="image/png" sizes="16x16" href="images/final USafe logo.jpg">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-    <style>
-        * {
-            box-sizing: border-box;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Emergency Access — SOS</title>
+<style>
+  /* ─────────────────────────────────────────────
+     RESET & BASE
+  ───────────────────────────────────────────── */
+  *, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
 
-        html, body {
-            margin: 0;
-            width: 100%;
-            height: 100%;
-            font-family: "Poppins", sans-serif;
-        }
+  :root {
+    /* AUTO-FILL DURATION — ring auto-completes this many ms after first tap */
+    --fill-duration: 2200ms;
 
-        .temp-splash {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            display: grid;
-            place-items: center;
-            text-align: center;
-            color: #ffffff;
-        }
+    /* SOS control sizing — responsive via clamp */
+    --ring-size: clamp(190px, 32vmin, 270px);
+    --btn-size:  clamp(116px, 19vmin, 166px);
 
-        .temp-splash video {
-            position: absolute;
-            inset: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
+    /* Emergency palette */
+    --red:        #C8001A;
+    --red-glow:   rgba(200, 0, 26, 0.18);
+    --red-border: rgba(200, 0, 26, 0.30);
+    --white:      #FFFFFF;
 
-        .temp-splash::before {
-            content: "";
-            position: absolute;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.5);
-        }
+    --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+    --ease-smooth:   cubic-bezier(0.22, 1, 0.36, 1);
+  }
 
-        .temp-content {
-            position: relative;
-            z-index: 1;
-            padding: 24px;
-        }
+  html, body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: #080808;
+    font-family: 'Georgia', serif;
+  }
 
-        .temp-content h1 {
-            margin: 0 0 10px;
-            font-size: clamp(2rem, 6vw, 4rem);
-            line-height: 1.1;
-        }
+  /* ─────────────────────────────────────────────
+     SITE CONTENT — revealed behind the curtain
+  ───────────────────────────────────────────── */
+  #site-content {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: #080808;
+    color: #e4ddd4;
+    text-align: center;
+    padding: 2rem;
+    z-index: 0;
+    user-select: none;
+  }
 
-        .temp-content p {
-            margin: 0;
-            font-size: clamp(1rem, 2.2vw, 1.25rem);
-            opacity: 0.95;
-        }
-    </style>
+  .site-eyebrow {
+    font-size: clamp(9px, 1.1vmin, 12px);
+    letter-spacing: 0.42em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.2);
+    font-family: 'Courier New', monospace;
+    margin-bottom: 2.8rem;
+  }
+
+  #site-content h1 {
+    font-size: clamp(2.2rem, 6.5vw, 5.4rem);
+    font-weight: 300;
+    letter-spacing: -0.025em;
+    line-height: 1.04;
+    color: #f2ede8;
+    margin-bottom: 1.6rem;
+  }
+
+  #site-content h1 em {
+    font-style: italic;
+    color: var(--red);
+  }
+
+  #site-content p {
+    font-size: clamp(0.78rem, 1.4vw, 0.92rem);
+    color: rgba(255,255,255,0.26);
+    max-width: 400px;
+    line-height: 1.75;
+    font-family: 'Courier New', monospace;
+    letter-spacing: 0.04em;
+  }
+
+  /* ─────────────────────────────────────────────
+     SPLASH — two white curtain panels
+  ───────────────────────────────────────────── */
+  #splash {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    pointer-events: all;
+  }
+
+  .curtain {
+    position: absolute;
+    top: 0;
+    width: 50%;
+    height: 100%;
+    background: var(--white);
+    will-change: transform;
+  }
+
+  .curtain-left  {
+    left: 0;
+    box-shadow: inset -10px 0 30px -6px rgba(0,0,0,0.05);
+  }
+
+  .curtain-right {
+    right: 0;
+    box-shadow: inset  10px 0 30px -6px rgba(0,0,0,0.05);
+  }
+
+  /* Curtain open — JS adds .revealing class */
+  #splash.revealing .curtain-left {
+    transition: transform 1.15s var(--ease-out-expo);
+    transform: translateX(-100%);
+  }
+
+  #splash.revealing .curtain-right {
+    transition: transform 1.15s var(--ease-out-expo);
+    transform: translateX(100%);
+  }
+
+  #splash.done {
+    pointer-events: none;
+  }
+
+  /* ─────────────────────────────────────────────
+     SOS CONTROL — centered above curtain z-layer
+  ───────────────────────────────────────────── */
+  #sos-control {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 101;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--ring-size);
+    height: var(--ring-size);
+  }
+
+  /* ─── SVG RING ───────────────────────────────
+     viewBox: 200×200  |  center: 100,100
+     r = 88  |  circumference ≈ 552.92
+
+     SVG arc starts at 3 o'clock.
+     CSS rotate(-90deg) shifts the origin to 12 o'clock (top).
+
+     AUTO-FILL:
+     On tap → dashoffset jumps from 552.92 → 0
+     using CSS transition of var(--fill-duration).
+     No rAF loop. Browser handles smooth interpolation.
+  ─────────────────────────────────────────── */
+  #ring-svg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    transform: rotate(-90deg);
+    will-change: opacity;
+    transition: opacity 0.5s ease;
+  }
+
+  #ring-track {
+    fill: none;
+    stroke: rgba(200, 0, 26, 0.09);
+    stroke-linecap: round;
+  }
+
+  #ring-progress {
+    fill: none;
+    stroke: var(--red);
+    stroke-linecap: round;
+    will-change: stroke-dashoffset;
+    /* CSS drives the fill animation — duration matches --fill-duration */
+    transition: stroke-dashoffset var(--fill-duration) linear;
+  }
+
+  /* Idle: transition OFF so page-load doesn't animate */
+  #ring-progress.idle {
+    transition: none;
+  }
+
+  /* ─── PULSE RINGS — breathing "live" feel ─── */
+  #ring-pulse {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    pointer-events: none;
+  }
+
+  .pulse-ring {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    border: 1.5px solid rgba(200, 0, 26, 0.20);
+    animation: pulseExpand 2.6s ease-out infinite;
+    opacity: 0;
+    will-change: transform, opacity;
+  }
+
+  .pulse-ring:nth-child(2) { animation-delay: 0.87s; }
+  .pulse-ring:nth-child(3) { animation-delay: 1.74s; }
+
+  @keyframes pulseExpand {
+    0%   { transform: scale(1.00); opacity: 0.55; }
+    80%  { transform: scale(1.30); opacity: 0;    }
+    100% { transform: scale(1.30); opacity: 0;    }
+  }
+
+  /* Freeze pulses once filling starts */
+  #sos-control.filling .pulse-ring {
+    animation-play-state: paused;
+    transition: opacity 0.25s ease;
+    opacity: 0 !important;
+  }
+
+  /* ─────────────────────────────────────────────
+     SOS BUTTON
+  ───────────────────────────────────────────── */
+  #sos-btn {
+    position: relative;
+    width: var(--btn-size);
+    height: var(--btn-size);
+    border-radius: 50%;
+    background: var(--white);
+    border: none;
+    cursor: pointer;
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+    user-select: none;
+
+    box-shadow:
+      0 0 0 2px rgba(200, 0, 26, 0.16),
+      0 0 0 5px #fff,
+      0 0 0 7px rgba(200, 0, 26, 0.28),
+      0 5px 32px rgba(0, 0, 0, 0.10),
+      0 1px 5px  rgba(0, 0, 0, 0.07);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(3px, 0.6vmin, 6px);
+
+    will-change: transform, box-shadow;
+    transition:
+      transform   0.22s var(--ease-smooth),
+      box-shadow  0.22s var(--ease-smooth);
+  }
+
+  /* Press feedback — brief scale + glow */
+  #sos-btn.pressed {
+    transform: scale(0.95);
+    box-shadow:
+      0 0 0 2px rgba(200, 0, 26, 0.42),
+      0 0 0 5px #fff,
+      0 0 0 8px rgba(200, 0, 26, 0.60),
+      0 2px 16px rgba(200, 0, 26, 0.16),
+      0 1px 5px  rgba(0, 0, 0, 0.09);
+  }
+
+  /* ── Button text ── */
+  .sos-text {
+    font-size: clamp(1.5rem, 3.8vmin, 2.3rem);
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    color: var(--red);
+    font-family: 'Courier New', monospace;
+    line-height: 1;
+    text-indent: 0.2em;
+    transition: opacity 0.3s ease;
+  }
+
+  /* Sub-label: "Tap to Activate" — shown before tap */
+  .tap-label {
+    font-size: clamp(0.46rem, 0.92vmin, 0.60rem);
+    letter-spacing: 0.30em;
+    text-transform: uppercase;
+    color: rgba(200, 0, 26, 0.36);
+    font-family: 'Courier New', monospace;
+    line-height: 1;
+    text-indent: 0.30em;
+    transition: opacity 0.25s ease;
+  }
+
+  /* Sub-label: "Activating" — shown after tap, blinks */
+  .active-label {
+    position: absolute;
+    bottom: 21%;
+    font-size: clamp(0.40rem, 0.82vmin, 0.54rem);
+    letter-spacing: 0.36em;
+    text-transform: uppercase;
+    color: rgba(200, 0, 26, 0.68);
+    font-family: 'Courier New', monospace;
+    text-indent: 0.36em;
+    opacity: 0;
+    pointer-events: none;
+    animation: blink 0.85s step-end infinite;
+  }
+
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50%       { opacity: 0; }
+  }
+
+  #sos-control.filling .tap-label    { opacity: 0; }
+  #sos-control.filling .active-label { opacity: 1; }
+
+  /* Corner bracket accents */
+  .btn-corner {
+    position: absolute;
+    width: 11px;
+    height: 11px;
+    border-color: rgba(200, 0, 26, 0.20);
+    border-style: solid;
+  }
+  .btn-corner.tl { top: 18%; left: 18%; border-width: 1.5px 0 0 1.5px; }
+  .btn-corner.tr { top: 18%; right: 18%; border-width: 1.5px 1.5px 0 0; }
+  .btn-corner.bl { bottom: 18%; left: 18%; border-width: 0 0 1.5px 1.5px; }
+  .btn-corner.br { bottom: 18%; right: 18%; border-width: 0 1.5px 1.5px 0; }
+
+  /* ─────────────────────────────────────────────
+     STATUS STRIP — live dot + dynamic message
+  ───────────────────────────────────────────── */
+  #status-strip {
+    position: absolute;
+    top: calc(50% - var(--ring-size) / 2 - clamp(28px, 4.5vmin, 46px));
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 101;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    white-space: nowrap;
+    transition: opacity 0.5s ease;
+  }
+
+  .live-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--red);
+    flex-shrink: 0;
+    animation: livePulse 1.1s ease-in-out infinite;
+  }
+
+  @keyframes livePulse {
+    0%, 100% { opacity: 1;   transform: scale(1.00); }
+    50%       { opacity: 0.35; transform: scale(0.72); }
+  }
+
+  .status-text {
+    font-size: clamp(8px, 1vmin, 11px);
+    letter-spacing: 0.38em;
+    text-transform: uppercase;
+    color: rgba(0, 0, 0, 0.26);
+    font-family: 'Courier New', monospace;
+  }
+
+  #status-strip.hidden {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  /* ─────────────────────────────────────────────
+     HINT — below control
+  ───────────────────────────────────────────── */
+  #hint {
+    position: absolute;
+    top: calc(50% + var(--ring-size) / 2 + clamp(18px, 3vmin, 34px));
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 101;
+    text-align: center;
+    transition: opacity 0.4s ease;
+    white-space: nowrap;
+  }
+
+  #hint span {
+    font-size: clamp(0.56rem, 1.02vmin, 0.68rem);
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: rgba(0, 0, 0, 0.20);
+    font-family: 'Courier New', monospace;
+  }
+
+  #hint.hidden {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  /* ─────────────────────────────────────────────
+     REDUCED MOTION OVERRIDES
+  ───────────────────────────────────────────── */
+  @media (prefers-reduced-motion: reduce) {
+    .pulse-ring,
+    .live-dot       { animation: none; }
+    .active-label   { animation: none; opacity: 1; }
+
+    #splash.revealing .curtain-left,
+    #splash.revealing .curtain-right {
+      transition-duration: 0.45s;
+    }
+
+    #ring-progress {
+      transition-duration: 0.6s !important;
+    }
+  }
+</style>
 </head>
 <body>
-    <section class="temp-splash">
-        <video autoplay muted loop playsinline>
-            <source src="images/hero_bg.mp4" type="video/mp4">
-        </video>
-        <div class="temp-content">
-            <h1>USafe</h1>
-            <p>Temporary splash using the home background media.</p>
-        </div>
-    </section>
+
+<!-- ══════════════════════════════════════════════
+     SITE CONTENT  (lives behind the curtain)
+══════════════════════════════════════════════ -->
+<section id="site-content" aria-hidden="true">
+  <p class="site-eyebrow">Secure Channel · Encrypted · Active</p>
+  <h1>Connection<br><em>Established.</em></h1>
+  <p>Signal verified. Emergency threshold cleared.<br>All channels are live and standing by.</p>
+</section>
+
+<!-- ══════════════════════════════════════════════
+     SPLASH OVERLAY
+══════════════════════════════════════════════ -->
+<div id="splash" role="dialog" aria-modal="true" aria-label="Tap SOS to activate emergency access">
+
+  <!-- White curtain panels -->
+  <div class="curtain curtain-left"  aria-hidden="true"></div>
+  <div class="curtain curtain-right" aria-hidden="true"></div>
+
+  <!-- Live status strip -->
+  <div id="status-strip" aria-hidden="true">
+    <span class="live-dot"></span>
+    <span class="status-text">System Standby · Awaiting Signal</span>
+  </div>
+
+  <!-- SOS Control -->
+  <div id="sos-control" aria-hidden="true">
+
+    <!-- Breathing pulse rings (idle live feel) -->
+    <div id="ring-pulse" aria-hidden="true">
+      <span class="pulse-ring"></span>
+      <span class="pulse-ring"></span>
+      <span class="pulse-ring"></span>
+    </div>
+
+    <!-- SVG Progress Ring
+         r=88, circumference≈552.92
+         Rotated -90° so arc origin = 12 o'clock -->
+    <svg id="ring-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <circle id="ring-track"    cx="100" cy="100" r="88" stroke-width="2.5" />
+      <circle id="ring-progress" cx="100" cy="100" r="88" stroke-width="4.5" />
+    </svg>
+
+    <!-- SOS Button — single tap activates -->
+    <button id="sos-btn" aria-label="Tap to activate emergency access" tabindex="0">
+      <span class="btn-corner tl" aria-hidden="true"></span>
+      <span class="btn-corner tr" aria-hidden="true"></span>
+      <span class="btn-corner bl" aria-hidden="true"></span>
+      <span class="btn-corner br" aria-hidden="true"></span>
+
+      <span class="sos-text">SOS</span>
+      <span class="tap-label">Tap to Activate</span>
+      <span class="active-label" aria-live="polite">Activating</span>
+    </button>
+  </div>
+
+  <!-- Instruction hint -->
+  <div id="hint">
+    <span>Tap once · Emergency access protocol will initiate</span>
+  </div>
+
+</div><!-- /#splash -->
+
+<script>
+/* ══════════════════════════════════════════════
+   SOS AUTO-FILL ON SINGLE TAP — Vanilla JS
+   ══════════════════════════════════════════════
+
+   KEY CHANGE FROM V1:
+   ─────────────────────────────────────────────
+   One tap/click is enough. The ring fills
+   automatically using a CSS transition — no hold,
+   no rAF loop. JS just:
+     1. Removes the 'idle' class (enables transition)
+     2. Sets dashoffset → 0  (triggers fill)
+     3. Waits FILL_DURATION ms then calls onComplete()
+
+   CONFIG
+   ──────
+   FILL_DURATION  — ms the auto-fill animation takes
+                    (must match CSS --fill-duration)
+   RADIUS         — must match SVG r="88"
+   CIRCUMFERENCE  — 2π × RADIUS ≈ 552.92
+*/
+
+const FILL_DURATION = 2200;                      // matches CSS --fill-duration
+const RADIUS        = 88;                        // matches SVG r attribute
+const CIRCUMFERENCE = 2 * Math.PI * RADIUS;     // ≈ 552.92
+
+/* ── Elements ── */
+const splash      = document.getElementById('splash');
+const sosControl  = document.getElementById('sos-control');
+const sosBtn      = document.getElementById('sos-btn');
+const ringProg    = document.getElementById('ring-progress');
+const statusStrip = document.getElementById('status-strip');
+const hint        = document.getElementById('hint');
+const statusText  = statusStrip.querySelector('.status-text');
+
+/* ── State flags ── */
+let activated = false;
+let completed = false;
+
+/* ──────────────────────────────────────────────
+   INIT RING
+   dashoffset = CIRCUMFERENCE → ring is invisible.
+   'idle' class disables the CSS transition so
+   there is zero animation on first paint.
+────────────────────────────────────────────── */
+ringProg.style.strokeDasharray  = `${CIRCUMFERENCE}`;
+ringProg.style.strokeDashoffset = `${CIRCUMFERENCE}`;
+ringProg.classList.add('idle');
+
+/* ──────────────────────────────────────────────
+   ACTIVATE
+   Triggered on first tap/click/keypress.
+   - Guard prevents double-trigger.
+   - Two nested rAFs ensure the transition
+     is registered before the value change.
+────────────────────────────────────────────── */
+function activate() {
+  if (activated || completed) return;
+  activated = true;
+
+  /* Brief press scale */
+  sosBtn.classList.add('pressed');
+  setTimeout(() => sosBtn.classList.remove('pressed'), 180);
+
+  /* Update live UI */
+  hint.classList.add('hidden');
+  statusText.textContent = 'Signal Acquired · Verifying Identity';
+  sosControl.classList.add('filling');
+
+  /* Trigger CSS auto-fill:
+     Remove 'idle' → transition is now active.
+     Double rAF guarantees the browser has registered
+     the current dashoffset value before we change it. */
+  ringProg.classList.remove('idle');
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      ringProg.style.strokeDashoffset = '0';
+    });
+  });
+
+  /* Call completion after fill finishes */
+  setTimeout(onComplete, FILL_DURATION + 80);
+}
+
+/* ──────────────────────────────────────────────
+   ON COMPLETE
+   Ring has fully filled. Run the reveal sequence:
+     1. Update status text
+     2. Fade the SOS control + status strip
+     3. Trigger curtain slide-out
+     4. Mark splash as done / inaccessible
+────────────────────────────────────────────── */
+function onComplete() {
+  if (completed) return;
+  completed = true;
+
+  statusText.textContent = 'Identity Confirmed · Opening Channel';
+
+  /* Fade control */
+  sosControl.style.transition  = 'opacity 0.5s ease';
+  sosControl.style.opacity     = '0';
+  statusStrip.style.transition = 'opacity 0.5s ease';
+  statusStrip.style.opacity    = '0';
+
+  /* Curtain reveal: panels slide after control fades */
+  setTimeout(() => {
+    splash.classList.add('revealing');
+
+    /* Remove from DOM flow once curtain animation finishes (1.15s) */
+    setTimeout(() => {
+      splash.classList.add('done');
+      splash.setAttribute('aria-hidden', 'true');
+      document.getElementById('site-content').removeAttribute('aria-hidden');
+    }, 1200);
+
+  }, 420); /* wait for control fade */
+}
+
+/* ──────────────────────────────────────────────
+   EVENT LISTENERS
+   pointerdown for immediate response on mouse + touch.
+   Keyboard: Space / Enter.
+────────────────────────────────────────────── */
+sosBtn.addEventListener('pointerdown', activate, { passive: true });
+
+sosBtn.addEventListener('keydown', (e) => {
+  if (e.key === ' ' || e.key === 'Enter') {
+    e.preventDefault();
+    activate();
+  }
+});
+
+/* ──────────────────────────────────────────────
+   REDUCED MOTION — skip fill, jump to reveal
+────────────────────────────────────────────── */
+if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  sosBtn.addEventListener('click', () => {
+    if (!completed) {
+      activated = true;
+      ringProg.classList.remove('idle');
+      ringProg.style.strokeDashoffset = '0';
+      setTimeout(onComplete, 650);
+    }
+  }, { once: true });
+}
+</script>
 </body>
 </html>

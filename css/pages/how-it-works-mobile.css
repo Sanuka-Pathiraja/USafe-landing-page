@@ -1,0 +1,211 @@
+/* Mobile-only timeline layer.
+   Desktop timeline CSS/logic remains untouched. */
+@media (max-width: 768px) {
+    /* Alignment system:
+       - single left rail anchor (line + dot)
+       - title/card grouped to that same anchor
+       - consistent vertical rhythm between steps */
+    .mobile-timeline .timeline {
+        --mobile-rail-x: 18px;
+    }
+
+    .mobile-timeline .timeline-mobile-progress {
+        position: sticky;
+        top: 76px;
+        z-index: 8;
+        margin: 0 0 14px;
+        padding: 10px 12px;
+        border-radius: 12px;
+        background: rgba(255, 255, 255, 0.92);
+        border: 1px solid rgba(10, 36, 99, 0.08);
+        backdrop-filter: blur(8px);
+    }
+
+    .mobile-timeline .timeline-mobile-progress-label {
+        display: block;
+        font-size: 0.82rem;
+        font-weight: 600;
+        color: var(--dark-blue);
+        margin-bottom: 8px;
+    }
+
+    .mobile-timeline .timeline-mobile-progress-track {
+        width: 100%;
+        height: 6px;
+        border-radius: 999px;
+        background: #dce4ee;
+        overflow: hidden;
+    }
+
+    .mobile-timeline .timeline-mobile-progress-fill {
+        width: 100%;
+        height: 100%;
+        border-radius: 999px;
+        background: linear-gradient(90deg, #00A8FF 0%, #0A2463 100%);
+        transform-origin: left center;
+        transform: scaleX(0);
+        will-change: transform;
+    }
+
+    .mobile-timeline .timeline-visual-stage {
+        display: block;
+    }
+
+    /* Desktop-style floating background scene is hidden on mobile.
+       Mobile JS moves a dedicated active icon under the active card instead. */
+    .mobile-timeline .timeline-bg-scenes {
+        display: none;
+    }
+
+    .mobile-timeline .timeline {
+        max-width: 100%;
+    }
+
+    .mobile-timeline .timeline::after,
+    .mobile-timeline .timeline::before {
+        left: var(--mobile-rail-x);
+        transform: none;
+        width: 3px;
+        top: 28px;
+    }
+
+    .mobile-timeline .timeline::after {
+        bottom: 28px;
+    }
+
+    .mobile-timeline .timeline-item {
+        display: block;
+        min-height: 0;
+        padding: 16px 0 16px 44px;
+        opacity: 0.52;
+        transform: translateY(0) scale(0.99);
+        transition: opacity 240ms ease, transform 240ms ease;
+    }
+
+    .mobile-timeline .timeline-item::after,
+    .mobile-timeline .timeline-item::before {
+        left: var(--mobile-rail-x);
+        top: 28px;
+        transform: translate(-50%, -50%);
+    }
+
+    /* Mobile dot refinement:
+       smaller/tighter than desktop, centered on rail with subtle pulse. */
+    .mobile-timeline .timeline-item::after {
+        width: 12px;
+        height: 12px;
+        border-width: 2px;
+    }
+
+    .mobile-timeline .timeline-item::before {
+        width: 22px;
+        height: 22px;
+        border-width: 1px;
+    }
+
+    .mobile-timeline .timeline-item.is-active {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+
+    .mobile-timeline .timeline-side-title,
+    .mobile-timeline .left .timeline-side-title,
+    .mobile-timeline .right .timeline-side-title {
+        position: static;
+        max-width: 100%;
+        transform: none;
+        width: 100%;
+        text-align: left;
+        padding: 0 0 8px;
+    }
+
+    .mobile-timeline .timeline-side-title h3 {
+        font-size: 1.08rem;
+    }
+
+    .mobile-timeline .timeline-detail,
+    .mobile-timeline .left .timeline-detail,
+    .mobile-timeline .right .timeline-detail {
+        position: relative;
+        top: auto;
+        left: auto;
+        right: auto;
+        width: 100%;
+        opacity: 0.6;
+        transform: translateY(0);
+        filter: none;
+        pointer-events: auto;
+        padding: 12px 14px 88px;
+        border-left-width: 3px;
+        border-left-color: transparent;
+        border-radius: 14px;
+        box-shadow: 0 6px 14px rgba(10, 36, 99, 0.08);
+        transition: opacity 280ms ease, border-color 280ms ease, box-shadow 280ms ease;
+        overflow: hidden;
+    }
+
+    .mobile-timeline .timeline-item.is-active .timeline-detail {
+        opacity: 1;
+        border-left-color: var(--primary);
+        box-shadow: 0 10px 22px rgba(10, 36, 99, 0.14);
+    }
+
+    .mobile-timeline .timeline-item.is-active::before {
+        opacity: 1;
+        border-color: rgba(0, 168, 255, 0.28);
+        animation: mobileDotPulse 1.8s ease-out infinite;
+    }
+
+    .mobile-timeline .timeline-item.is-active::after {
+        border-color: #00A8FF;
+        background: #ffffff;
+        box-shadow: 0 0 0 3px rgba(0, 168, 255, 0.16);
+    }
+
+    .mobile-timeline .timeline-item.is-complete::after {
+        border-color: #00A8FF;
+        background: #9ad9ff;
+        box-shadow: 0 0 0 2px rgba(0, 168, 255, 0.12);
+    }
+
+    .mobile-timeline .content-header i,
+    .mobile-timeline .content-header h4,
+    .mobile-timeline .timeline-detail p {
+        opacity: 1;
+        transform: none;
+        transition: none;
+        position: relative;
+        z-index: 2;
+    }
+
+    /* Active icon lives under active panel content for a connected composition. */
+    .mobile-timeline .timeline-mobile-icon-slot {
+        position: absolute;
+        right: 10px;
+        bottom: 8px;
+        width: 108px;
+        height: 108px;
+        z-index: 1;
+        opacity: 0.22;
+        pointer-events: none;
+    }
+
+    .mobile-timeline .timeline-mobile-icon-slot lord-icon {
+        width: 100%;
+        height: 100%;
+        display: block;
+        filter: none;
+    }
+}
+
+@media (max-width: 768px) and (prefers-reduced-motion: reduce) {
+    .mobile-timeline .timeline-item.is-active::before {
+        animation: none;
+    }
+}
+
+@keyframes mobileDotPulse {
+    0% { transform: translate(-50%, -50%) scale(0.84); opacity: 0.45; }
+    70% { transform: translate(-50%, -50%) scale(1.08); opacity: 0; }
+    100% { transform: translate(-50%, -50%) scale(1.08); opacity: 0; }
+}

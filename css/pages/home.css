@@ -1,4 +1,4 @@
-﻿.hero-section {
+.hero-section {
     height: 120vh;
     width: 100%;
     margin-top: 0;
@@ -9,6 +9,7 @@
     position: relative;
     overflow: hidden;
     text-align: center;
+    background: #050d1a url("../../images/homeAndSplash/pre_load_hero_bg.webp") center / cover no-repeat;
 }
 
 .hero-video {
@@ -19,6 +20,12 @@
     height: 100%;
     object-fit: cover;
     z-index: 0;
+    opacity: 0;
+    transition: opacity 0.45s ease;
+}
+
+.hero-section.video-ready .hero-video {
+    opacity: 1;
 }
 
 .hero-overlay {
@@ -446,3 +453,4 @@
         opacity: 1;
     }
 }
+

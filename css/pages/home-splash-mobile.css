@@ -1,0 +1,186 @@
+@media (max-width: 768px) {
+    html,
+    body,
+    body.home-splash-lock {
+        overflow-x: hidden;
+    }
+
+    #home-splash,
+    #home-splash * {
+        box-sizing: border-box;
+    }
+
+    #home-splash {
+        --ring-size: clamp(172px, 52vw, 228px);
+        --btn-size: clamp(106px, 34vw, 142px);
+        position: fixed;
+        inset: 0;
+        width: 100%;
+        min-height: 100dvh;
+        padding: 0;
+        overflow: hidden;
+        display: block;
+    }
+
+    #home-splash-curtain,
+    #home-splash-curtain-overlay {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+    }
+
+    #home-splash-wordmark,
+    #home-splash-status {
+        top: calc(env(safe-area-inset-top) + 12px);
+        z-index: 4003;
+    }
+
+    #home-splash-wordmark {
+        left: calc(env(safe-area-inset-left) + 14px);
+        max-width: 45vw;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        letter-spacing: 0.22em;
+    }
+
+    #home-splash-status {
+        right: calc(env(safe-area-inset-right) + 14px);
+        left: auto;
+        max-width: min(54vw, 220px);
+        min-width: 0;
+        display: flex;
+        align-items: flex-start;
+        justify-content: flex-end;
+        gap: 6px;
+        overflow: hidden;
+    }
+
+    .home-splash-live-dot {
+        margin-top: 0.32em;
+        flex: 0 0 5px;
+    }
+
+    #home-splash-status-text {
+        display: block;
+        min-width: 0;
+        max-width: 100%;
+        font-size: clamp(0.5rem, 1.8vw, 0.62rem);
+        letter-spacing: 0.12em;
+        line-height: 1.35;
+        white-space: normal;
+        overflow-wrap: anywhere;
+        text-align: right;
+    }
+
+    #home-splash-control {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        width: min(92vw, 360px);
+        margin: 0;
+        padding: 0 10px;
+        gap: 1.15rem;
+        align-items: center;
+        text-align: center;
+    }
+
+    #home-splash-ring-wrap {
+        margin: 0 auto;
+    }
+
+    #home-splash-top-label {
+        width: 100%;
+        text-align: center;
+        font-size: 0.58rem;
+        letter-spacing: 0.24em;
+    }
+
+    #home-splash-btn-text {
+        font-size: clamp(1.35rem, 6.7vw, 1.95rem);
+    }
+
+    #home-splash-btn-tap {
+        font-size: clamp(0.4rem, 1.9vw, 0.52rem);
+        letter-spacing: 0.2em;
+    }
+
+    #home-splash-btn-active {
+        font-size: clamp(0.37rem, 1.7vw, 0.48rem);
+        letter-spacing: 0.24em;
+    }
+
+    #home-splash-hint {
+        width: 100%;
+        max-width: 300px;
+        margin: 0 auto;
+        font-size: 0.55rem;
+        letter-spacing: 0.17em;
+        line-height: 1.45;
+        text-align: center;
+    }
+
+    #home-splash-bottom {
+        left: calc(env(safe-area-inset-left) + 14px);
+        right: calc(env(safe-area-inset-right) + 14px);
+        bottom: calc(env(safe-area-inset-bottom) + 12px);
+        width: auto;
+        gap: 10px;
+    }
+
+    .home-splash-stat {
+        min-width: 0;
+    }
+
+    .home-splash-stat-num {
+        font-size: clamp(1.02rem, 4.8vw, 1.3rem);
+    }
+
+    .home-splash-stat-label {
+        font-size: 0.5rem;
+        letter-spacing: 0.14em;
+    }
+}
+
+@media (max-width: 480px) {
+    #home-splash {
+        --ring-size: clamp(160px, 58vw, 200px);
+        --btn-size: clamp(100px, 36vw, 126px);
+    }
+
+    #home-splash-wordmark {
+        max-width: 42vw;
+    }
+
+    #home-splash-status {
+        max-width: min(50vw, 180px);
+    }
+
+    #home-splash-control {
+        width: min(94vw, 320px);
+    }
+
+    #home-splash-bottom {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 8px;
+    }
+
+    .home-splash-stat,
+    .home-splash-stat.right {
+        text-align: center;
+    }
+}
+
+@media (max-width: 768px) and (max-height: 740px) {
+    #home-splash-control {
+        top: 48%;
+    }
+
+    #home-splash-bottom {
+        bottom: calc(env(safe-area-inset-bottom) + 8px);
+    }
+}

@@ -25,23 +25,11 @@
 
     var pageLinks = document.querySelectorAll(".nav-links a[data-page]");
     for (var j = 0; j < pageLinks.length; j += 1) {
-        var link = pageLinks[j];
-        var linkPage = link.getAttribute("data-page");
+        var linkPage = pageLinks[j].getAttribute("data-page");
         if (linkPage === currentPage) {
-            link.setAttribute("aria-current", "page");
-
-            // Avoid full page reload when the user clicks the current-page nav item.
-            link.addEventListener("click", function (event) {
-                event.preventDefault();
-
-                // Home click should just bring user back to top instead of reloading.
-                if (currentPage === "home") {
-                    var prefersReducedMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-                    window.scrollTo({ top: 0, behavior: prefersReducedMotion ? "auto" : "smooth" });
-                }
-            });
+            pageLinks[j].setAttribute("aria-current", "page");
         } else {
-            link.removeAttribute("aria-current");
+            pageLinks[j].removeAttribute("aria-current");
         }
     }
 })();

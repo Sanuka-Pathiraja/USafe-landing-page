@@ -1,0 +1,440 @@
+body.home-splash-lock {
+    overflow: hidden;
+    overflow-x: hidden;
+}
+
+body.home-nav-ready .navbar {
+    transform: translate3d(0, -120%, 0);
+    opacity: 0;
+    transition:
+        transform 0.72s cubic-bezier(0.22, 1, 0.36, 1),
+        opacity 0.52s ease;
+    will-change: transform, opacity;
+}
+
+body.home-nav-ready.home-nav-show .navbar {
+    transform: translate3d(0, 0, 0);
+    opacity: 1;
+}
+
+body.home-hero-seq .hero-copy,
+body.home-hero-seq .btn-learn-more {
+    opacity: 0;
+    pointer-events: none;
+}
+
+body.home-hero-seq .hero-copy {
+    transform: translate3d(0, 10px, 0) scale(0.995);
+    filter: blur(1px);
+    transition:
+        opacity 0.34s cubic-bezier(0.22, 1, 0.36, 1),
+        transform 0.46s cubic-bezier(0.22, 1, 0.36, 1),
+        filter 0.34s ease;
+}
+
+body.home-hero-seq.home-nav-show .hero-copy {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+    filter: blur(0);
+}
+
+body.home-hero-seq .btn-learn-more {
+    transform: translate3d(0, 16px, 0) scale(0.975);
+    filter: blur(2px);
+    transition:
+        opacity 0.52s cubic-bezier(0.22, 1, 0.36, 1),
+        transform 0.62s cubic-bezier(0.22, 1, 0.36, 1),
+        filter 0.52s ease;
+}
+
+body.home-hero-seq.home-hero-button-show .btn-learn-more {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+    filter: blur(0);
+    pointer-events: auto;
+}
+
+#home-splash {
+    --fill-duration: 2200ms;
+    --ring-size: clamp(200px, 34vmin, 280px);
+    --btn-size: clamp(120px, 20vmin, 170px);
+    --primary: #3eb8ff;
+    --primary-dim: rgba(62, 184, 255, 0.15);
+    --dark: #050d1a;
+    --white: #ffffff;
+    --off-white: rgba(255, 255, 255, 0.88);
+    --muted: rgba(255, 255, 255, 0.38);
+    --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+    --ease-smooth: cubic-bezier(0.22, 1, 0.36, 1);
+
+    position: fixed;
+    inset: 0;
+    z-index: 4000;
+    pointer-events: all;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: "Poppins", sans-serif;
+}
+
+#home-splash-curtain {
+    position: absolute;
+    inset: 0;
+    will-change: opacity;
+    opacity: 1;
+}
+
+#home-splash-curtain-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        160deg,
+        rgba(5, 13, 26, 0.48) 0%,
+        rgba(5, 13, 26, 0.36) 50%,
+        rgba(5, 13, 26, 0.56) 100%
+    );
+}
+
+#home-splash.revealing #home-splash-control,
+#home-splash.revealing #home-splash-status,
+#home-splash.revealing #home-splash-wordmark,
+#home-splash.revealing #home-splash-bottom {
+    transition: opacity 0.45s ease;
+    opacity: 0;
+}
+
+#home-splash.revealing #home-splash-curtain {
+    transition: opacity 1.0s cubic-bezier(0.4, 0, 0.2, 1) 0.05s;
+    opacity: 0;
+}
+
+#home-splash.done {
+    pointer-events: none;
+    visibility: hidden;
+}
+
+#home-splash-wordmark {
+    position: absolute;
+    top: clamp(1.5rem, 3vw, 2.5rem);
+    left: clamp(1.5rem, 3vw, 2.5rem);
+    z-index: 4002;
+    font-size: clamp(0.7rem, 1vw, 0.8rem);
+    font-weight: 600;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--primary);
+}
+
+#home-splash-status {
+    position: absolute;
+    top: clamp(1.5rem, 3vw, 2.5rem);
+    right: clamp(1.5rem, 3vw, 2.5rem);
+    z-index: 4002;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.home-splash-live-dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--primary);
+    flex-shrink: 0;
+    animation: homeSplashLivePulse 1.4s ease-in-out infinite;
+}
+
+@keyframes homeSplashLivePulse {
+    0%,
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.3;
+        transform: scale(0.7);
+    }
+}
+
+#home-splash-status-text {
+    font-size: clamp(0.6rem, 0.75vw, 0.7rem);
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 400;
+    white-space: nowrap;
+}
+
+#home-splash-control {
+    position: relative;
+    z-index: 4002;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: clamp(1.8rem, 3.5vmin, 2.8rem);
+}
+
+#home-splash-top-label {
+    font-size: clamp(0.6rem, 0.85vw, 0.72rem);
+    letter-spacing: 0.36em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 400;
+    text-align: center;
+    transition: opacity 0.3s ease;
+}
+
+#home-splash-control.filling #home-splash-top-label {
+    opacity: 0;
+}
+
+#home-splash-ring-wrap {
+    position: relative;
+    width: var(--ring-size);
+    height: var(--ring-size);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.home-splash-pulse-ring {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    border: 1px solid rgba(62, 184, 255, 0.25);
+    animation: homeSplashPulseExpand 2.8s ease-out infinite;
+    opacity: 0;
+    will-change: transform, opacity;
+    pointer-events: none;
+}
+
+.home-splash-pulse-ring:nth-child(2) {
+    animation-delay: 0.93s;
+}
+
+.home-splash-pulse-ring:nth-child(3) {
+    animation-delay: 1.86s;
+}
+
+@keyframes homeSplashPulseExpand {
+    0% {
+        transform: scale(1);
+        opacity: 0.5;
+    }
+    80% {
+        transform: scale(1.28);
+        opacity: 0;
+    }
+    100% {
+        transform: scale(1.28);
+        opacity: 0;
+    }
+}
+
+#home-splash-control.filling .home-splash-pulse-ring {
+    animation-play-state: paused;
+    opacity: 0 !important;
+}
+
+#home-splash-ring-svg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    transform: rotate(-90deg);
+}
+
+#home-splash-ring-track {
+    fill: none;
+    stroke: rgba(62, 184, 255, 0.12);
+    stroke-linecap: round;
+}
+
+#home-splash-ring-progress {
+    fill: none;
+    stroke: var(--primary);
+    stroke-linecap: round;
+    will-change: stroke-dashoffset;
+    transition: stroke-dashoffset var(--fill-duration) linear;
+    filter: drop-shadow(0 0 6px rgba(62, 184, 255, 0.5));
+}
+
+#home-splash-ring-progress.idle {
+    transition: none;
+}
+
+#home-splash-btn {
+    position: relative;
+    width: var(--btn-size);
+    height: var(--btn-size);
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.97);
+    border: none;
+    cursor: pointer;
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+    user-select: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(4px, 0.7vmin, 7px);
+    box-shadow:
+        0 0 0 1px rgba(62, 184, 255, 0.3),
+        0 0 0 5px rgba(255, 255, 255, 0.08),
+        0 8px 40px rgba(0, 0, 0, 0.28),
+        0 0 60px rgba(62, 184, 255, 0.08);
+    transition: transform 0.22s var(--ease-smooth), box-shadow 0.22s ease;
+}
+
+#home-splash-btn:hover {
+    box-shadow:
+        0 0 0 1px rgba(62, 184, 255, 0.5),
+        0 0 0 5px rgba(255, 255, 255, 0.1),
+        0 8px 40px rgba(0, 0, 0, 0.28),
+        0 0 70px rgba(62, 184, 255, 0.15);
+}
+
+#home-splash-btn.pressed {
+    transform: scale(0.94);
+}
+
+#home-splash-btn-text {
+    font-family: "DM Sans", sans-serif;
+    font-size: clamp(1.5rem, 3.6vmin, 2.2rem);
+    font-weight: 500;
+    letter-spacing: 0.22em;
+    color: rgba(10, 36, 99, 0.88);
+    line-height: 1;
+    text-indent: 0.22em;
+    transition: opacity 0.3s ease;
+}
+
+#home-splash-btn-tap {
+    font-family: "DM Sans", sans-serif;
+    font-size: clamp(0.44rem, 0.8vmin, 0.58rem);
+    font-weight: 400;
+    letter-spacing: 0.26em;
+    text-transform: uppercase;
+    color: rgba(5, 13, 26, 0.42);
+    line-height: 1;
+    text-indent: 0.26em;
+    transition: opacity 0.25s ease;
+}
+
+#home-splash-btn-active {
+    position: absolute;
+    bottom: 20%;
+    font-family: "DM Sans", sans-serif;
+    font-size: clamp(0.4rem, 0.78vmin, 0.52rem);
+    font-weight: 400;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--primary);
+    text-indent: 0.32em;
+    opacity: 0;
+    pointer-events: none;
+}
+
+@keyframes homeSplashBlink {
+    0%,
+    100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0;
+    }
+}
+
+#home-splash-control.filling #home-splash-btn-tap {
+    opacity: 0;
+}
+
+#home-splash-control.filling #home-splash-btn-active {
+    opacity: 1;
+    animation: homeSplashBlink 0.9s step-end infinite;
+}
+
+#home-splash-hint {
+    font-size: clamp(0.58rem, 0.82vw, 0.68rem);
+    letter-spacing: 0.26em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.22);
+    font-weight: 400;
+    text-align: center;
+    transition: opacity 0.4s ease;
+}
+
+#home-splash-control.filling #home-splash-hint {
+    opacity: 0;
+}
+
+#home-splash-bottom {
+    position: absolute;
+    bottom: clamp(1.5rem, 3vw, 2.5rem);
+    left: clamp(1.5rem, 3vw, 2.5rem);
+    right: clamp(1.5rem, 3vw, 2.5rem);
+    z-index: 4002;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+.home-splash-stat {
+    text-align: left;
+}
+
+.home-splash-stat.right {
+    text-align: right;
+}
+
+.home-splash-stat-num {
+    font-size: clamp(1.3rem, 2.2vw, 1.7rem);
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.9);
+    line-height: 1;
+    margin-bottom: 0.25rem;
+}
+
+.home-splash-safe-word {
+    font-size: 1.18em;
+    color: var(--primary);
+}
+
+.home-splash-stat-label {
+    font-size: clamp(0.58rem, 0.78vw, 0.68rem);
+    font-weight: 400;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--muted);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    body.home-hero-seq .hero-copy,
+    body.home-hero-seq .btn-learn-more {
+        transition-duration: 0.22s;
+        filter: none;
+    }
+
+    body.home-nav-ready .navbar {
+        transition-duration: 0.24s;
+    }
+
+    .home-splash-pulse-ring,
+    .home-splash-live-dot {
+        animation: none;
+    }
+
+    #home-splash-btn-active {
+        animation: none;
+    }
+
+    #home-splash.revealing #home-splash-curtain {
+        transition-duration: 0.35s;
+    }
+
+    #home-splash-ring-progress {
+        transition-duration: 0.7s !important;
+    }
+}

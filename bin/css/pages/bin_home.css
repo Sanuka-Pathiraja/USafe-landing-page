@@ -24,12 +24,7 @@
 .hero-overlay {
     position: absolute;
     inset: 0;
-    background: linear-gradient(
-        160deg,
-        rgba(5, 13, 26, 0.65) 0%,
-        rgba(5, 13, 26, 0.5) 50%,
-        rgba(5, 13, 26, 0.72) 100%
-    );
+    background: rgba(10, 36, 99, 0.44);
     z-index: 1;
 }
 
@@ -63,7 +58,7 @@
 .hero-copy {
     --hero-title-scale: 1;
     --hero-subtitle-scale: 1;
-    --hero-title-glow: rgba(229, 209, 250, 0.45);
+    --hero-title-glow: rgba(229, 209, 250, 0.9);
     --hero-subtitle-glow: rgba(163, 156, 244, 0.75);
     overflow: visible;
 }
@@ -72,11 +67,11 @@
     transform: translateZ(0) scale(var(--hero-title-scale));
     transform-origin: center center;
     will-change: transform;
-    -webkit-text-stroke: 0.7px rgba(229, 209, 250, 0.2);
+    -webkit-text-stroke: 1px rgba(229, 209, 250, 0.26);
     text-shadow:
-        0 0 5px rgba(229, 209, 250, 0.24),
-        0 0 12px var(--hero-title-glow),
-        0 0 24px rgba(163, 156, 244, 0.24);
+        0 0 10px rgba(229, 209, 250, 0.38),
+        0 0 22px var(--hero-title-glow),
+        0 0 42px rgba(163, 156, 244, 0.42);
     animation: heroTitleGlow 3.2s ease-in-out infinite;
 }
 
@@ -359,10 +354,10 @@
 
 @keyframes heroTitleGlow {
     0%, 100% {
-        text-shadow: 0 0 4px rgba(229, 209, 250, 0.2), 0 0 11px rgba(229, 209, 250, 0.38), 0 0 20px rgba(163, 156, 244, 0.2);
+        text-shadow: 0 0 8px rgba(229, 209, 250, 0.32), 0 0 20px rgba(229, 209, 250, 0.6), 0 0 36px rgba(163, 156, 244, 0.32);
     }
     50% {
-        text-shadow: 0 0 7px rgba(229, 209, 250, 0.32), 0 0 16px rgba(229, 209, 250, 0.55), 0 0 32px rgba(163, 156, 244, 0.3);
+        text-shadow: 0 0 14px rgba(229, 209, 250, 0.6), 0 0 28px rgba(229, 209, 250, 0.95), 0 0 56px rgba(163, 156, 244, 0.55);
     }
 }
 

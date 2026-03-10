@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>USafe | Intelligent Personal Safety</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --fill-duration: 2200ms;
+  --ring-size: clamp(200px, 34vmin, 280px);
+  --btn-size:  clamp(120px, 20vmin, 170px);
+  --primary:   #3EB8FF;
+  --primary-dim: rgba(62, 184, 255, 0.15);
+  --dark:      #050D1A;
+  --white:     #ffffff;
+  --off-white: rgba(255,255,255,0.88);
+  --muted:     rgba(255,255,255,0.38);
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-smooth:   cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: var(--dark);
+  font-family: 'DM Sans', sans-serif;
+}
+
+/* ── VIDEO BG ── */
+.bg-video {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.bg-overlay {
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(
+    160deg,
+    rgba(5, 13, 26, 0.72) 0%,
+    rgba(5, 13, 26, 0.55) 50%,
+    rgba(5, 13, 26, 0.78) 100%
+  );
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* ── SITE CONTENT ── */
+#site-content {
+  position: fixed;
+  inset: 0;
+  z-index: 2;
+  display: grid;
+  grid-template-rows: 1fr auto 1fr;
+  align-items: center;
+  padding: clamp(2rem, 5vw, 4rem);
+}
+
+.site-header {
+  align-self: start;
+  padding-top: clamp(1.5rem, 3vw, 2.5rem);
+}
+
+.site-logo {
+  font-size: clamp(0.7rem, 1vw, 0.8rem);
+  font-weight: 500;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--primary);
+  font-family: 'DM Sans', sans-serif;
+}
+
+.site-hero {
+  text-align: center;
+}
+
+.site-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: clamp(0.65rem, 0.9vw, 0.75rem);
+  font-weight: 400;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 1.8rem;
+}
+
+.site-eyebrow::before,
+.site-eyebrow::after {
+  content: '';
+  display: block;
+  width: 24px;
+  height: 1px;
+  background: var(--muted);
+}
+
+.site-hero h1 {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(3rem, 7vw, 6rem);
+  font-weight: 400;
+  line-height: 1.0;
+  letter-spacing: -0.02em;
+  color: var(--white);
+  margin-bottom: 1.4rem;
+}
+
+.site-hero h1 em {
+  font-style: italic;
+  color: var(--primary);
+}
+
+.site-hero p {
+  font-family: 'DM Sans', sans-serif;
+  font-size: clamp(0.85rem, 1.2vw, 1rem);
+  font-weight: 300;
+  color: var(--off-white);
+  letter-spacing: 0.04em;
+  line-height: 1.8;
+  max-width: 380px;
+  margin: 0 auto 2.8rem;
+}
+
+.site-cta-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.4rem;
+  flex-wrap: wrap;
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0.8em 1.8em;
+  background: var(--primary);
+  color: var(--dark);
+  border: none;
+  border-radius: 100px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: clamp(0.78rem, 1vw, 0.88rem);
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  transition: transform 0.2s var(--ease-smooth), box-shadow 0.2s ease;
+}
+
+.btn-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 28px rgba(62, 184, 255, 0.35);
+}
+
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0.8em 1.8em;
+  background: transparent;
+  color: var(--off-white);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 100px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: clamp(0.78rem, 1vw, 0.88rem);
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+
+.btn-ghost:hover {
+  border-color: rgba(255,255,255,0.5);
+  color: var(--white);
+}
+
+.site-footer {
+  align-self: end;
+  padding-bottom: clamp(1.5rem, 3vw, 2.5rem);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.footer-stat {
+  text-align: left;
+}
+
+.footer-stat-num {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(1.4rem, 2.5vw, 1.9rem);
+  color: var(--white);
+  line-height: 1;
+  margin-bottom: 0.3rem;
+}
+
+.footer-stat-label {
+  font-size: clamp(0.62rem, 0.8vw, 0.7rem);
+  font-weight: 400;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.footer-tagline {
+  font-size: clamp(0.62rem, 0.8vw, 0.7rem);
+  font-weight: 400;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--muted);
+  text-align: right;
+}
+
+/* reveal animation states for site content */
+#site-content .site-header,
+#site-content .site-eyebrow,
+#site-content h1,
+#site-content p,
+#site-content .site-cta-row,
+#site-content .site-footer {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.9s var(--ease-out-expo), transform 0.9s var(--ease-out-expo);
+}
+
+#site-content.revealed .site-header   { opacity: 1; transform: none; transition-delay: 0.1s; }
+#site-content.revealed .site-eyebrow  { opacity: 1; transform: none; transition-delay: 0.25s; }
+#site-content.revealed h1             { opacity: 1; transform: none; transition-delay: 0.38s; }
+#site-content.revealed p              { opacity: 1; transform: none; transition-delay: 0.50s; }
+#site-content.revealed .site-cta-row  { opacity: 1; transform: none; transition-delay: 0.62s; }
+#site-content.revealed .site-footer   { opacity: 1; transform: none; transition-delay: 0.74s; }
+
+/* ══════════════════════════════
+   SPLASH
+══════════════════════════════ */
+#splash {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  pointer-events: all;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ── CURTAIN ── */
+#curtain {
+  position: absolute;
+  inset: 0;
+  will-change: opacity;
+  opacity: 1;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+#curtain-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+#curtain-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    160deg,
+    rgba(5, 13, 26, 0.65) 0%,
+    rgba(5, 13, 26, 0.50) 50%,
+    rgba(5, 13, 26, 0.72) 100%
+  );
+}
+
+/*
+  REVEAL SEQUENCE — pure opacity, compositor-only, zero paint/layout:
+  1. HUD elements fade out fast (0.45s)
+  2. Curtain dissolves slowly over 1.8s with a smooth ease
+  Result: clean cross-dissolve from splash → site content
+*/
+#splash.revealing #sos-control,
+#splash.revealing #status-strip,
+#splash.revealing #splash-wordmark,
+#splash.revealing #splash-bottom {
+  transition: opacity 0.45s ease;
+  opacity: 0;
+}
+
+#splash.revealing #curtain {
+  transition: opacity 1.8s cubic-bezier(0.4, 0, 0.2, 1) 0.3s;
+  opacity: 0;
+}
+
+#splash.done {
+  pointer-events: none;
+  visibility: hidden;
+}
+
+/* ── SPLASH WORDMARK ── */
+#splash-wordmark {
+  position: absolute;
+  top: clamp(1.5rem, 3vw, 2.5rem);
+  left: clamp(1.5rem, 3vw, 2.5rem);
+  z-index: 102;
+  font-size: clamp(0.7rem, 1vw, 0.8rem);
+  font-weight: 500;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--primary);
+  transform: translateZ(0); /* own compositing layer */
+}
+
+/* ── STATUS STRIP ── */
+#status-strip {
+  position: absolute;
+  top: clamp(1.5rem, 3vw, 2.5rem);
+  right: clamp(1.5rem, 3vw, 2.5rem);
+  z-index: 102;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: opacity 0.5s ease;
+  transform: translateZ(0);
+}
+
+.live-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--primary);
+  flex-shrink: 0;
+  animation: livePulse 1.4s ease-in-out infinite;
+}
+
+@keyframes livePulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%       { opacity: 0.3; transform: scale(0.7); }
+}
+
+.status-text {
+  font-size: clamp(0.6rem, 0.75vw, 0.7rem);
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 400;
+  white-space: nowrap;
+}
+
+/* ── SOS CONTROL ── */
+#sos-control {
+  position: relative;
+  z-index: 102;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(1.8rem, 3.5vmin, 2.8rem);
+  transform: translateZ(0);
+}
+
+.sos-label-top {
+  font-size: clamp(0.6rem, 0.85vw, 0.72rem);
+  letter-spacing: 0.36em;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 400;
+  text-align: center;
+  transition: opacity 0.3s ease;
+}
+
+#sos-control.filling .sos-label-top {
+  opacity: 0;
+}
+
+.sos-ring-wrap {
+  position: relative;
+  width: var(--ring-size);
+  height: var(--ring-size);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Pulse rings */
+.pulse-ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 1px solid rgba(62, 184, 255, 0.25);
+  animation: pulseExpand 2.8s ease-out infinite;
+  opacity: 0;
+  will-change: transform, opacity;
+  pointer-events: none;
+}
+.pulse-ring:nth-child(2) { animation-delay: 0.93s; }
+.pulse-ring:nth-child(3) { animation-delay: 1.86s; }
+
+@keyframes pulseExpand {
+  0%   { transform: scale(1.00); opacity: 0.5; }
+  80%  { transform: scale(1.28); opacity: 0; }
+  100% { transform: scale(1.28); opacity: 0; }
+}
+
+#sos-control.filling .pulse-ring {
+  animation-play-state: paused;
+  opacity: 0 !important;
+}
+
+/* SVG ring */
+#ring-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+
+#ring-track {
+  fill: none;
+  stroke: rgba(62, 184, 255, 0.12);
+  stroke-linecap: round;
+}
+
+#ring-progress {
+  fill: none;
+  stroke: var(--primary);
+  stroke-linecap: round;
+  will-change: stroke-dashoffset;
+  transition: stroke-dashoffset var(--fill-duration) linear;
+  filter: drop-shadow(0 0 6px rgba(62, 184, 255, 0.5));
+}
+
+#ring-progress.idle {
+  transition: none;
+}
+
+/* SOS Button */
+#sos-btn {
+  position: relative;
+  width: var(--btn-size);
+  height: var(--btn-size);
+  border-radius: 50%;
+  background: rgba(255,255,255,0.97);
+  border: none;
+  cursor: pointer;
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  user-select: none;
+
+  box-shadow:
+    0 0 0 1px rgba(62, 184, 255, 0.3),
+    0 0 0 5px rgba(255,255,255,0.08),
+    0 8px 40px rgba(0,0,0,0.28),
+    0 0 60px rgba(62, 184, 255, 0.08);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(4px, 0.7vmin, 7px);
+
+  will-change: transform, box-shadow;
+  transition: transform 0.22s var(--ease-smooth), box-shadow 0.22s ease;
+}
+
+#sos-btn:hover {
+  box-shadow:
+    0 0 0 1px rgba(62, 184, 255, 0.5),
+    0 0 0 5px rgba(255,255,255,0.1),
+    0 8px 40px rgba(0,0,0,0.28),
+    0 0 70px rgba(62, 184, 255, 0.15);
+}
+
+#sos-btn.pressed {
+  transform: scale(0.94);
+}
+
+.sos-text {
+  font-family: 'DM Sans', sans-serif;
+  font-size: clamp(1.5rem, 3.6vmin, 2.2rem);
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  color: #050D1A;
+  line-height: 1;
+  text-indent: 0.22em;
+  transition: opacity 0.3s ease;
+}
+
+.tap-label {
+  font-family: 'DM Sans', sans-serif;
+  font-size: clamp(0.44rem, 0.8vmin, 0.58rem);
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: rgba(5, 13, 26, 0.42);
+  line-height: 1;
+  text-indent: 0.26em;
+  transition: opacity 0.25s ease;
+}
+
+.active-label {
+  position: absolute;
+  bottom: 20%;
+  font-family: 'DM Sans', sans-serif;
+  font-size: clamp(0.4rem, 0.78vmin, 0.52rem);
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--primary);
+  text-indent: 0.32em;
+  opacity: 0;
+  pointer-events: none;
+  animation: blink 0.9s step-end infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
+#sos-control.filling .tap-label    { opacity: 0; }
+#sos-control.filling .active-label { opacity: 1; }
+
+/* hint */
+.sos-hint {
+  font-size: clamp(0.58rem, 0.82vw, 0.68rem);
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.22);
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 400;
+  text-align: center;
+  transition: opacity 0.4s ease;
+}
+
+#sos-control.filling .sos-hint {
+  opacity: 0;
+}
+
+/* ── BOTTOM BAR ── */
+#splash-bottom {
+  position: absolute;
+  bottom: clamp(1.5rem, 3vw, 2.5rem);
+  left: clamp(1.5rem, 3vw, 2.5rem);
+  right: clamp(1.5rem, 3vw, 2.5rem);
+  z-index: 102;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  transform: translateZ(0);
+}
+
+.splash-stat { text-align: left; }
+.splash-stat + .splash-stat { text-align: right; }
+
+.splash-stat-num {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(1.3rem, 2.2vw, 1.7rem);
+  color: rgba(255,255,255,0.9);
+  line-height: 1;
+  margin-bottom: 0.25rem;
+}
+
+.splash-stat-label {
+  font-size: clamp(0.58rem, 0.78vw, 0.68rem);
+  font-weight: 400;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* ── REDUCED MOTION ── */
+@media (prefers-reduced-motion: reduce) {
+  .pulse-ring,
+  .live-dot       { animation: none; }
+  .active-label   { animation: none; opacity: 1; }
+  #splash.revealing #curtain { transition-duration: 0.35s; }
+  #ring-progress  { transition-duration: 0.7s !important; }
+  #site-content .site-header,
+  #site-content .site-eyebrow,
+  #site-content h1,
+  #site-content p,
+  #site-content .site-cta-row,
+  #site-content .site-footer { transition-duration: 0.35s !important; }
+}
+</style>
+</head>
+<body>
+
+<!-- BG VIDEO -->
+<video class="bg-video" autoplay muted loop playsinline aria-hidden="true">
+  <source src="images/hero_bg.mp4" type="video/mp4">
+</video>
+<div class="bg-overlay" aria-hidden="true"></div>
+
+<!-- ══ SITE CONTENT ══ -->
+<section id="site-content" aria-hidden="true">
+
+  <header class="site-header">
+    <span class="site-logo">USafe</span>
+  </header>
+
+  <div class="site-hero">
+    <span class="site-eyebrow">Intelligent Personal Safety</span>
+    <h1>Your Proactive<br><em>AI Guardian</em></h1>
+    <p>Intelligent safety that reads the situation and acts before you have to.</p>
+    <div class="site-cta-row">
+      <button class="btn-primary">Get Protected</button>
+      <button class="btn-ghost">See How It Works</button>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div>
+      <div class="footer-stat-num">2.4M+</div>
+      <div class="footer-stat-label">Protected Users</div>
+    </div>
+    <div class="footer-tagline">Safety · Intelligence · Peace of Mind</div>
+  </footer>
+
+</section>
+
+<!-- ══ SPLASH OVERLAY ══ -->
+<div id="splash" role="dialog" aria-modal="true" aria-label="Tap SOS to activate USafe">
+
+  <!-- Full-screen curtain -->
+  <div id="curtain" aria-hidden="true">
+    <video id="curtain-video" autoplay muted loop playsinline aria-hidden="true">
+      <source src="images/hero_bg.mp4" type="video/mp4">
+    </video>
+    <div id="curtain-overlay"></div>
+  </div>
+
+  <!-- Wordmark -->
+  <div id="splash-wordmark" aria-hidden="true">USafe</div>
+
+  <!-- Status -->
+  <div id="status-strip" aria-hidden="true">
+    <span class="live-dot"></span>
+    <span class="status-text">Standby — Awaiting Activation</span>
+  </div>
+
+  <!-- SOS Control -->
+  <div id="sos-control" aria-hidden="true">
+    <span class="sos-label-top">Your AI Guardian is Ready</span>
+
+    <div class="sos-ring-wrap">
+      <span class="pulse-ring" aria-hidden="true"></span>
+      <span class="pulse-ring" aria-hidden="true"></span>
+      <span class="pulse-ring" aria-hidden="true"></span>
+
+      <svg id="ring-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <circle id="ring-track"    cx="100" cy="100" r="88" stroke-width="2" />
+        <circle id="ring-progress" cx="100" cy="100" r="88" stroke-width="4" />
+      </svg>
+
+      <button id="sos-btn" aria-label="Tap to activate USafe guardian" tabindex="0">
+        <span class="sos-text">SOS</span>
+        <span class="tap-label">Tap to Activate</span>
+        <span class="active-label" aria-live="polite">Activating</span>
+      </button>
+    </div>
+
+    <span class="sos-hint">Tap once — intelligent protection activates instantly</span>
+  </div>
+
+  <!-- Bottom bar -->
+  <div id="splash-bottom" aria-hidden="true">
+    <div class="splash-stat">
+      <div class="splash-stat-num">2.4M+</div>
+      <div class="splash-stat-label">Protected Users</div>
+    </div>
+    <div class="splash-stat">
+      <div class="splash-stat-num" style="text-align:right">99.8%</div>
+      <div class="splash-stat-label">Response Rate</div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+const FILL_DURATION = 2200;
+const RADIUS        = 88;
+const CIRCUMFERENCE = 2 * Math.PI * RADIUS;
+const REDUCED_MOTION = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const CURTAIN_DURATION = REDUCED_MOTION ? 350 : 1600;
+
+const splash       = document.getElementById('splash');
+const sosControl   = document.getElementById('sos-control');
+const sosBtn       = document.getElementById('sos-btn');
+const ringProg     = document.getElementById('ring-progress');
+const statusStrip  = document.getElementById('status-strip');
+const statusText   = statusStrip.querySelector('.status-text');
+const siteContent  = document.getElementById('site-content');
+
+let activated = false;
+let completed  = false;
+
+// Init ring hidden
+ringProg.style.strokeDasharray  = `${CIRCUMFERENCE}`;
+ringProg.style.strokeDashoffset = `${CIRCUMFERENCE}`;
+ringProg.classList.add('idle');
+
+function activate() {
+  if (activated || completed) return;
+  activated = true;
+
+  sosBtn.classList.add('pressed');
+  setTimeout(() => sosBtn.classList.remove('pressed'), 200);
+
+  statusText.textContent = 'AI Guardian Initializing…';
+  sosControl.classList.add('filling');
+
+  // Trigger ring fill
+  ringProg.classList.remove('idle');
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      ringProg.style.strokeDashoffset = '0';
+    });
+  });
+
+  setTimeout(onComplete, FILL_DURATION + 80);
+}
+
+function onComplete() {
+  if (completed) return;
+  completed = true;
+
+  // Make site content visible underneath before dissolve starts
+  siteContent.removeAttribute('aria-hidden');
+  siteContent.classList.add('revealed');
+
+  // One rAF to let the browser register the above changes,
+  // then trigger the dissolve on the very next composited frame
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      splash.classList.add('revealing');
+
+      // 0.3s delay + 1.8s fade + small buffer = 2.2s total
+      setTimeout(() => {
+        splash.classList.add('done');
+        splash.setAttribute('aria-hidden', 'true');
+      }, 2200);
+    });
+  });
+}
+
+sosBtn.addEventListener('pointerdown', activate, { passive: true });
+
+sosBtn.addEventListener('keydown', (e) => {
+  if (e.key === ' ' || e.key === 'Enter') {
+    e.preventDefault();
+    activate();
+  }
+});
+
+if (REDUCED_MOTION) {
+  sosBtn.addEventListener('click', () => {
+    if (!completed) {
+      activated = true;
+      ringProg.classList.remove('idle');
+      ringProg.style.strokeDashoffset = '0';
+      setTimeout(onComplete, 700);
+    }
+  }, { once: true });
+}
+</script>
+</body>
+</html>

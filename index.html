@@ -4,6 +4,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>USafe | Intelligent Personal Safety</title>
+    <script>
+        (function () {
+            "use strict";
+
+            try {
+                var navEntry = window.performance && typeof window.performance.getEntriesByType === "function"
+                    ? window.performance.getEntriesByType("navigation")[0]
+                    : null;
+                var isReload = navEntry
+                    ? navEntry.type === "reload"
+                    : !!(window.performance && window.performance.navigation && window.performance.navigation.type === 1);
+
+                if (isReload) {
+                    document.documentElement.classList.add("home-splash-pending");
+                }
+            } catch (error) {
+                // Keep first paint stable even if navigation timing APIs are unavailable.
+            }
+        })();
+    </script>
 
     <link rel="icon" sizes="192x192" href="images/final USafe logo.jpg">
     <link rel="icon" type="image/png" sizes="32x32" href="images/final USafe logo.jpg">
@@ -258,10 +278,10 @@
         </div>
     </footer>
 
+    <script src="js/pages/home-splash.js"></script>
     <script src="js/shared/navigation.js"></script>
     <script src="js/shared/reveal.js"></script>
     <script type="module" src="js/pages/home.js"></script>
-    <script src="js/pages/home-splash.js"></script>
 </body>
 </html>
 

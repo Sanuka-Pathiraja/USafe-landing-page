@@ -3,6 +3,33 @@ body.home-splash-lock {
     overflow-x: hidden;
 }
 
+html.home-splash-pending body[data-page="home"] {
+    overflow: hidden;
+    overflow-x: hidden;
+}
+
+html.home-splash-pending body[data-page="home"] > * {
+    visibility: hidden;
+}
+
+html.home-splash-pending body[data-page="home"]::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 3999;
+    pointer-events: none;
+    background: linear-gradient(
+        160deg,
+        rgba(5, 13, 26, 0.48) 0%,
+        rgba(5, 13, 26, 0.36) 50%,
+        rgba(5, 13, 26, 0.56) 100%
+    );
+}
+
+html.home-splash-pending body[data-page="home"] > #home-splash {
+    visibility: visible;
+}
+
 body.home-nav-ready .navbar {
     transform: translate3d(0, -120%, 0);
     opacity: 0;

@@ -1,6 +1,7 @@
 (function () {
     "use strict";
 
+    var root = document.documentElement;
     var FILL_DURATION = 2200;
     var RADIUS = 88;
     var CIRCUMFERENCE = 2 * Math.PI * RADIUS;
@@ -65,16 +66,23 @@
     }
 
     function initHomeSplash() {
+        function clearPendingSplashPaint() {
+            root.classList.remove("home-splash-pending");
+        }
+
         if (document.body.getAttribute("data-page") !== "home") {
+            clearPendingSplashPaint();
             return;
         }
 
         // Show splash only on explicit full refresh of the home page.
         if (!isFullReload()) {
+            clearPendingSplashPaint();
             return;
         }
 
         if (document.getElementById("home-splash")) {
+            clearPendingSplashPaint();
             return;
         }
 
@@ -85,6 +93,7 @@
         body.classList.remove("home-nav-show");
         body.classList.remove("home-hero-button-show");
         body.insertAdjacentHTML("afterbegin", splashMarkup);
+        clearPendingSplashPaint();
 
         var splash = document.getElementById("home-splash");
         var control = document.getElementById("home-splash-control");

@@ -66,6 +66,41 @@
     }
 
     function initHomeSplash() {
+        var lockedScrollY = 0;
+
+        function lockPageScroll(body) {
+            lockedScrollY = window.pageYOffset || document.documentElement.scrollTop || 0;
+            root.classList.add("home-splash-active");
+            body.classList.add("home-splash-lock");
+            body.style.position = "fixed";
+            body.style.top = "-" + String(lockedScrollY) + "px";
+            body.style.left = "0";
+            body.style.right = "0";
+            body.style.width = "100%";
+        }
+
+        function unlockPageScroll(body) {
+            var top = body.style.top;
+            var restoreY = lockedScrollY;
+
+            body.style.position = "";
+            body.style.top = "";
+            body.style.left = "";
+            body.style.right = "";
+            body.style.width = "";
+            body.classList.remove("home-splash-lock");
+            root.classList.remove("home-splash-active");
+
+            if (top) {
+                var parsedTop = parseInt(top, 10);
+                if (!Number.isNaN(parsedTop)) {
+                    restoreY = Math.abs(parsedTop);
+                }
+            }
+
+            window.scrollTo(0, restoreY);
+        }
+
         function clearPendingSplashPaint() {
             root.classList.remove("home-splash-pending");
         }
@@ -87,7 +122,7 @@
         }
 
         var body = document.body;
-        body.classList.add("home-splash-lock");
+        lockPageScroll(body);
         body.classList.add("home-nav-ready");
         body.classList.add("home-hero-seq");
         body.classList.remove("home-nav-show");
@@ -122,7 +157,7 @@
                     window.setTimeout(function () {
                         splash.classList.add("done");
                         splash.setAttribute("aria-hidden", "true");
-                        body.classList.remove("home-splash-lock");
+                        unlockPageScroll(body);
                         requestAnimationFrame(function () {
                             body.classList.add("home-nav-show");
 

@@ -1,6 +1,15 @@
 body.home-splash-lock {
     overflow: hidden;
     overflow-x: hidden;
+    overscroll-behavior: none;
+}
+
+html.home-splash-active,
+html.home-splash-active body {
+    overflow: hidden;
+    overflow-x: hidden;
+    overscroll-behavior: none;
+    height: 100%;
 }
 
 html.home-splash-pending body[data-page="home"] {
@@ -104,6 +113,8 @@ body.home-hero-seq.home-hero-button-show .btn-learn-more {
     align-items: center;
     justify-content: center;
     font-family: "Poppins", sans-serif;
+    overscroll-behavior: none;
+    touch-action: none;
 }
 
 #home-splash-curtain {
